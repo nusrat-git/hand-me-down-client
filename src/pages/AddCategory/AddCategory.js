@@ -1,3 +1,4 @@
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
 import category from '../../images/category.webp'
@@ -7,6 +8,9 @@ const AddCategory = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const imgHostKey = process.env.REACT_APP_imgbb_key;
+
+    const time = new Date();
+
 
     const onSubmit = data => {
         const image = data.image[0];
@@ -21,7 +25,8 @@ const AddCategory = () => {
             .then(imgData => {
                 const category = {
                     name: data.category,
-                    image: imgData.data.url
+                    image: imgData.data.url,
+                    time: time
                 };
                 console.log(category);
                 if (imgData.success) {

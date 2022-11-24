@@ -7,8 +7,9 @@ import { Link } from 'react-router-dom';
 const navigation = [
     { name: 'Home', to: '/' },
     { name: 'Products', to: '/products' },
+    { name: 'AddP', to: '/addproduct' },
     { name: 'Categories', to: '/categories' },
-    { name: 'Add', to: '/addcategory' },
+    { name: 'AddC', to: '/addcategory' },
     { name: 'Marketplace', to: '/' },
     { name: 'Blogs', to: '/blogs' },
 ]
