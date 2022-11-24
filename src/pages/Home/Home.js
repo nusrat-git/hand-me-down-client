@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import Footer from '../../shared/Footer/Footer';
 import Categories from '../Categories/Categories';
 import Header from '../Header/Header';
+import Promo from '../Promo/Promo';
 
 const Home = () => {
 
-    const { data: products } = useQuery({
+    const { data: products = [] } = useQuery({
         queryKey: ['products'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/homeProducts');
@@ -26,7 +27,7 @@ const Home = () => {
             </div>
             <div>
                 <h1 className='text-4xl font-bold mt-20 mb-10'>Products</h1>
-                <div className='grid grid-cols-1 md:grid-cols-3 md:px-40 gap-10'>
+                <div className='grid grid-cols-1 md:grid-cols-3 md:px-40 gap-10 px-4'>
                     {
                         products.map(product =>
                             <div key={product._id} className='flex flex-col items-center my-10' >
@@ -41,6 +42,9 @@ const Home = () => {
                         )
                     }
                 </div>
+            </div>
+            <div className=" mt-32">
+                <Promo></Promo>   
             </div>
             <Footer></Footer>
         </div>

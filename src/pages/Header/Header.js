@@ -10,7 +10,6 @@ const navigation = [
     { name: 'AddP', to: '/addproduct' },
     { name: 'Categories', to: '/categories' },
     { name: 'AddC', to: '/addcategory' },
-    { name: 'Marketplace', to: '/' },
     { name: 'Blogs', to: '/blogs' },
 ]
 

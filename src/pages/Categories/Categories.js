@@ -4,7 +4,7 @@ import { Link, useLoaderData } from 'react-router-dom';
 const Categories = () => {
     const data = useLoaderData();
     return (
-        <div className='grid grid-cols-1 md:grid-cols-3 md:px-40 gap-10'>
+        <div className='grid grid-cols-1 md:grid-cols-3 md:px-40 gap-10 px-4'>
             {
                 data.map(category =>
                     <div key={category._id} className='flex flex-col items-center my-10' >
