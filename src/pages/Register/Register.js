@@ -38,48 +38,49 @@ const Register = () => {
             .then(result => {
                 const user = result.user;
                 console.log(user);
+                const image = data.image[0];
+                const formData = new FormData();
+                formData.append('image', image);
+                const url = `https://api.imgbb.com/1/upload?key=${imgHostKey}`;
+                fetch(url, {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(res => res.json())
+                    .then(imgData => {
+                        const user = {
+                            name: data.name,
+                            image: imgData.data.url,
+                            email: data.email,
+                            phone: data.phone,
+                            role: selected.name,
+                            location: data.location,
+
+                        };
+                        if (imgData.success) {
+                            handleUser(data.name, imgData.data.url);
+                            fetch('http://localhost:5000/users', {
+                                method: 'POST',
+                                headers: {
+                                    'content-type': 'application/json'
+                                },
+                                body: JSON.stringify(user)
+                            })
+                                .then(res => res.json())
+                                .then(data => {
+                                    console.log(data);
+                                    toast.success('User created successfully');
+                                })
+                                .catch(err => console.error(err))
+                        }
+                    })
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(errorCode, errorMessage);
             });
-        const image = data.image[0];
-        const formData = new FormData();
-        formData.append('image', image);
-        const url = `https://api.imgbb.com/1/upload?key=${imgHostKey}`;
-        fetch(url, {
-            method: 'POST',
-            body: formData
-        })
-            .then(res => res.json())
-            .then(imgData => {
-                const user = {
-                    name: data.name,
-                    image: imgData.data.url,
-                    email: data.email,
-                    phone: data.phone,
-                    role: selected.name,
-                    location: data.location,
 
-                };
-                handleUser(data.name, imgData.data.url)
-                if (imgData.success) {
-                    fetch('http://localhost:5000/users', {
-                        method: 'POST',
-                        headers: {
-                            'content-type': 'application/json'
-                        },
-                        body: JSON.stringify(user)
-                    })
-                        .then(res => res.json())
-                        .then(data => {
-                            console.log(data);
-                            toast.success('User created successfully');
-                        })
-                        .catch(err => console.error(err))
-                }
-            })
     };
 
     const handleUser = (name, image) => {
