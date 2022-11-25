@@ -75,11 +75,11 @@ const AddProduct = () => {
                         </div>
                         <div className="mb-6">
                             <label htmlFor="resale_price" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Resale Price</label>
-                            <input type="number" {...register("resale_price")} id="resale_price" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 " required />
+                            <input type="text" {...register("resale_price")} id="resale_price" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 " required />
                         </div>
                         <div className="mb-6">
                             <label htmlFor="original_price" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Original Price</label>
-                            <input type="number" {...register("original_price")} id="original_price" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 " required />
+                            <input type="text" {...register("original_price")} id="original_price" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 " required />
                         </div>
                         <div className="mb-6">
                             <label htmlFor="use_period" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Use Period</label>

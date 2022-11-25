@@ -4,6 +4,7 @@ import AddCategory from "../../pages/AddCategory/AddCategory";
 import AddProduct from "../../pages/AddProduct/AddProduct";
 import Blogs from "../../pages/Blogs/Blogs";
 import Categories from "../../pages/Categories/Categories";
+import Category from "../../pages/Category/Category";
 import Home from "../../pages/Home/Home";
 import Products from "../../pages/Products/Products";
 
@@ -37,6 +38,11 @@ export const router = createBrowserRouter([
         path: '/categories',
         element: <Categories></Categories>,
         loader: () => fetch('http://localhost:5000/categories')
+      },
+      {
+        path: '/categories/:name',
+        element: <Category></Category>,
+        loader: ({params}) => fetch(`http://localhost:5000/categories/${params.name}`)
       },
       {
         path: '/addcategory',

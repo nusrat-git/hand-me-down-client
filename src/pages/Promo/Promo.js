@@ -36,13 +36,13 @@ const Promo = () => {
                                                 <div className="h-64 w-44 overflow-hidden rounded-lg sm:opacity-0 lg:opacity-100">
                                                     <img
                                                         src=" https://i.ibb.co/4gv9Z3X/2dnd.webp"
-                                                        alt="" className="h-full w-full object-cover object-center h-[256] w-[176]"
+                                                        alt="" className="h-full w-full object-cover object-center md:h-[256] md:w-[176]"
                                                     />
                                                 </div>
                                                 <div className="h-64 w-44 overflow-hidden rounded-lg">
                                                     <img
                                                         src="https://i.ibb.co/f8vxjBB/images.jpg"
-                                                        alt="" className="h-full w-full object-cover object-center h-[256] w-[176]"
+                                                        alt="" className="h-full w-full object-cover object-center md:h-[256] md:w-[176]"
                                                     />
                                                 </div>
                                             </div>
@@ -50,19 +50,19 @@ const Promo = () => {
                                                 <div className="h-64 w-44 overflow-hidden rounded-lg">
                                                     <img
                                                         src=" https://i.ibb.co/K7c5hx3/slider-bed.jpg"
-                                                        alt="" className="h-full w-full object-cover object-center h-[256] w-[176]"
+                                                        alt="" className="h-full w-full object-cover object-center md:h-[256] md:w-[176]"
                                                     />
                                                 </div>
                                                 <div className="h-64 w-44 overflow-hidden rounded-lg">
                                                     <img
                                                         src="https://i.ibb.co/M9yhC2z/chair-pillow-176382-876.webp "
-                                                        alt="" className="h-full w-full object-cover object-center h-[256] w-[176]"
+                                                        alt="" className="h-full w-full object-cover object-center md:h-[256] md:w-[176]"
                                                     />
                                                 </div>
                                                 <div className="h-64 w-44 overflow-hidden rounded-lg">
                                                     <img
                                                         src=" https://i.ibb.co/HY1qMC1/e55e2e79-28cf-4970-ba8c-cdd53dbc51e1-size1684x950.webp "
-                                                        alt="" className="h-full w-full object-cover object-center h-[256] w-[176]"
+                                                        alt="" className="h-full w-full object-cover object-center md:h-[256] md:w-[176]"
                                                     />
                                                 </div>
                                             </div>
@@ -70,13 +70,13 @@ const Promo = () => {
                                                 <div className="h-64 w-44 overflow-hidden rounded-lg">
                                                     <img
                                                         src="https://i.ibb.co/cxng14N/tcc-366view-01rgbcolor.jpg "
-                                                        alt="" className="h-full w-full object-cover object-center h-[256] w-[176]"
+                                                        alt="" className="h-full w-full object-cover object-center md:h-[256] md:w-[176]"
                                                     />
                                                 </div>
                                                 <div className="h-64 w-44 overflow-hidden rounded-lg">
                                                     <img
                                                         src="https://i.ibb.co/4KcFQrn/U033634-RM.jpg"
-                                                        alt="" className="h-full w-full object-cover object-center h-[256] w-[176]"
+                                                        alt="" className="h-full w-full object-cover object-center md:h-[256] md:w-[176]"
                                                     />
                                                 </div>
                                             </div>
