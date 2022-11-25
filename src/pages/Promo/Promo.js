@@ -12,13 +12,13 @@ const Promo = () => {
                                 Products at Cheaper Price
                             </h1>
                             <p className="mt-4 text-xl text-gray-500">
-                                This year, our new summer collection will shelter you from the harsh elements of a world that doesn't care
-                                if you live or die.
+                                This year, decorate your house within a budget. <br />
+                                Buy from our trusted sellers.
                             </p>
                             <Link
-                                to="/Products"
+                                to="/categories"
                             >
-                                <button className="inline-block rounded-md border border-transparent bg-indigo-600 mt-5 py-3 px-8 text-center font-medium text-white hover:bg-indigo-700">
+                                <button className="inline-block rounded-md border border-transparent bg-blue-600 mt-5 py-3 px-8 text-center font-medium text-white hover:bg-blue-700">
                                     Shop Products
                                 </button>
                             </Link>

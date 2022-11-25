@@ -4,17 +4,33 @@ import { Dialog, Transition } from '@headlessui/react'
 import { useForm } from 'react-hook-form';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../shared/Context/AuthProvider';
+import toast, { Toaster } from 'react-hot-toast';
 
 const BookModal = () => {
     const [open, setOpen] = useState(true);
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
+    const onSubmit = data => {
+        console.log(data);
+        fetch('http://localhost:5000/booked', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                toast.success('Booked successfully');
+            })
+            .catch(err => console.error(err))
+    };
     const navigate = useNavigate();
 
     const data = useLoaderData();
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
-    const handleClose = () =>{
+    const handleClose = () => {
         setOpen(false);
         navigate('/products');
     }
@@ -101,6 +117,7 @@ const BookModal = () => {
                     </div>
                 </Dialog>
             </Transition.Root>
+            <Toaster/>
         </div>
 
     );

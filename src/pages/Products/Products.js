@@ -37,7 +37,7 @@ const Products = () => {
                 {
                     data.map(product =>
                         <div key={product._id} className='flex flex-col items-center my-10' >
-                            <img src={product.image} alt={product.name} className='md:w-[384px] md:h-[264px] rounded-3xl' />
+                            <img src={product.image} alt={product.name} className='md:w-[384px] h-[264px] rounded-3xl w-full'/>
                             <div className='-mt-40'>
                                 <h1 className='font-bold text-2xl text-black mb-2 shadow-md'>{product.product}</h1>
                                 <Link to={`/products/${product._id}`}>

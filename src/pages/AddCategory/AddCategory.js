@@ -48,7 +48,7 @@ const AddCategory = () => {
     };
 
     return (
-        <div className=' my-10 md:flex items-center w-fit mx-auto border rounded-2xl'>
+        <div className=' my-10 md:flex items-center md:w-fit mx-auto border rounded-2xl'>
             <div>
                 <h1 className="text-3xl font-bold mb-10 text-gray-700">Add a new category</h1>
                 <form className=' px-20' onSubmit={handleSubmit(onSubmit)}>
@@ -64,7 +64,7 @@ const AddCategory = () => {
                     <input type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " placeholder='Add' />
                 </form>
             </div>
-            <img src={category} alt="sofa" className='md:h-[600px] rounded-tr-xl rounded-br-xl' />
+            <img src={category} alt="sofa" className='md:h-[600px] md:rounded-tr-xl w-full md:rounded-br-xl mt-10 md:mt-10' />
             <Toaster />
         </div>
 

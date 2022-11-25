@@ -142,28 +142,18 @@ const Header = () => {
                             <div>
                                 <div>
                                     <h1 className="text-4xl font-bold tracking-tight sm:text-center sm:text-6xl">
-                                        Data to enrich your online business
+                                        Get Products At Cheap Rate
                                     </h1>
-                                    <p className="mt-6 text-lg leading-8 text-gray-600 sm:text-center">
-                                        Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt
-                                        amet fugiat veniam occaecat fugiat aliqua.
+                                    <p className="mt-6 text-xl leading-8 text-gray-900 sm:text-center">
+                                        Hand over your wanted products. Or buy products at a reasonable price 
                                     </p>
                                     <div className="mt-8 flex gap-x-4 sm:justify-center">
                                         <Link
-                                            to="/"
-                                            className="inline-block rounded-lg bg-indigo-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-indigo-600 hover:bg-indigo-700 hover:ring-indigo-700"
+                                            to="/categories"
+                                            className="inline-block rounded-lg bg-blue-600 px-4 py-1.5 text-base font-semibold leading-7 text-white shadow-sm ring-1 ring-blue-600 hover:bg-blue-700 hover:ring-blue-700 mx-auto"
                                         >
-                                            Get started
+                                            Explore
                                             <span className="text-indigo-200" aria-hidden="true">
-                                                &rarr;
-                                            </span>
-                                        </Link>
-                                        <Link
-                                            to="/"
-                                            className="inline-block rounded-lg px-4 py-1.5 text-base font-semibold leading-7 text-gray-900 ring-1 ring-gray-900/10 hover:ring-gray-900/20"
-                                        >
-                                            Live demo
-                                            <span className="text-gray-400" aria-hidden="true">
                                                 &rarr;
                                             </span>
                                         </Link>
