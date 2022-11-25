@@ -1,8 +1,100 @@
 import { LockClosedIcon } from '@heroicons/react/24/outline';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { useForm } from "react-hook-form";
+import { Fragment, useState } from 'react'
+import { Listbox, Transition } from '@headlessui/react'
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import toast, { Toaster } from 'react-hot-toast';
+import { AuthContext } from '../../shared/Context/AuthProvider';
+
+const people = [
+    {
+        id: 1,
+        name: 'Buyer'
+    },
+    {
+        id: 2,
+        name: 'Seller'
+    }
+]
+
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+}
+
 
 const Register = () => {
+
+    const { userRegister, handleProfile } = useContext(AuthContext);
+
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const imgHostKey = process.env.REACT_APP_imgbb_key;
+
+    const onSubmit = data => {
+        console.log(data);
+        userRegister(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+            });
+        const image = data.image[0];
+        const formData = new FormData();
+        formData.append('image', image);
+        const url = `https://api.imgbb.com/1/upload?key=${imgHostKey}`;
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.json())
+            .then(imgData => {
+                const user = {
+                    name: data.name,
+                    image: imgData.data.url,
+                    email: data.email,
+                    phone: data.phone,
+                    role: selected.name,
+                    location: data.location,
+
+                };
+                handleUser(data.name, imgData.data.url)
+                if (imgData.success) {
+                    fetch('http://localhost:5000/users', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(user)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            console.log(data);
+                            toast.success('User created successfully');
+                        })
+                        .catch(err => console.error(err))
+                }
+            })
+    };
+
+    const handleUser = (name, image) => {
+        const profile = {
+            displayName: name,
+            photoURL: image
+        }
+
+        handleProfile(profile)
+            .then(() => { })
+            .catch(error => console.error(error));
+    }
+
+    const [selected, setSelected] = useState(people[0])
+
     return (
         <div>
             <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -17,24 +109,39 @@ const Register = () => {
                             Register your account
                         </h2>
                     </div>
-                    <form className="mt-8 space-y-6" action="#" method="POST">
+                    <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
                         <input type="hidden" name="remember" defaultValue="true" />
-                        <div className="-space-y-px rounded-md shadow-sm">
+                        <div className=" rounded-md shadow-sm">
                             <div>
-                                <label htmlFor="Name" className="sr-only">
+                                <label htmlFor="Name">
                                     Name
                                 </label>
                                 <input
                                     id="Name"
                                     name="name"
                                     type="text"
-                                    required
+                                    {...register("name", { required: true })}
                                     className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                     placeholder="Name"
                                 />
+                                {errors.name && <span>This field is required</span>}
                             </div>
                             <div>
-                                <label htmlFor="email-address" className="sr-only">
+                                <label htmlFor="Name">
+                                    Image
+                                </label>
+                                <input
+                                    id="image"
+                                    name="image"
+                                    type="file"
+                                    {...register("image", { required: true })}
+                                    className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                                    placeholder="Image"
+                                />
+                                {errors.name && <span>This field is required</span>}
+                            </div>
+                            <div>
+                                <label htmlFor="email-address">
                                     Email address
                                 </label>
                                 <input
@@ -42,51 +149,120 @@ const Register = () => {
                                     name="email"
                                     type="email"
                                     autoComplete="email"
-                                    required
+                                    {...register("email", { required: true })}
                                     className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                     placeholder="Email address"
                                 />
+                                {errors.email && <span>This field is required</span>}
                             </div>
                             <div>
-                                <label htmlFor="phone-number" className="sr-only">
+                                <label htmlFor="phone-number">
                                     Phone number
                                 </label>
                                 <input
                                     id="phone-number"
                                     name="phone"
                                     type="text"
-                                    required
+                                    {...register("phone", { required: true })}
                                     className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                     placeholder="Phone number"
                                 />
+                                {errors.phone && <span>This field is required</span>}
                             </div>
-
                             <div>
-                                <label htmlFor="location" className="sr-only">
+                                <div>
+                                    <Listbox value={selected} onChange={setSelected}>
+                                        {({ open }) => (
+                                            <>
+                                                <Listbox.Label className="block text-sm font-medium text-gray-700">Select User</Listbox.Label>
+                                                <div className="relative mt-1">
+                                                    <Listbox.Button className="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm">
+                                                        <span className="flex items-center">
+                                                            <span className="ml-3 block truncate">{selected.name}</span>
+                                                        </span>
+                                                        <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
+                                                            <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                        </span>
+                                                    </Listbox.Button>
+
+                                                    <Transition
+                                                        show={open}
+                                                        as={Fragment}
+                                                        leave="transition ease-in duration-100"
+                                                        leaveFrom="opacity-100"
+                                                        leaveTo="opacity-0"
+                                                    >
+                                                        <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                                            {people.map((person) => (
+                                                                <Listbox.Option
+                                                                    key={person.id}
+                                                                    className={({ active }) =>
+                                                                        classNames(
+                                                                            active ? 'text-white bg-indigo-600' : 'text-gray-900',
+                                                                            'relative cursor-default select-none py-2 pl-3 pr-9'
+                                                                        )
+                                                                    }
+                                                                    value={person}
+                                                                >
+                                                                    {({ selected, active }) => (
+                                                                        <>
+                                                                            <div className="flex items-center">
+                                                                                <span
+                                                                                    className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')}
+                                                                                >
+                                                                                    {person.name}
+                                                                                </span>
+                                                                            </div>
+
+                                                                            {selected ? (
+                                                                                <span
+                                                                                    className={classNames(
+                                                                                        active ? 'text-white' : 'text-indigo-600',
+                                                                                        'absolute inset-y-0 right-0 flex items-center pr-4'
+                                                                                    )}
+                                                                                >
+                                                                                    <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                                                </span>
+                                                                            ) : null}
+                                                                        </>
+                                                                    )}
+                                                                </Listbox.Option>
+                                                            ))}
+                                                        </Listbox.Options>
+                                                    </Transition>
+                                                </div>
+                                            </>
+                                        )}
+                                    </Listbox>
+                                </div>
+                            </div>
+                            <div>
+                                <label htmlFor="location">
                                     Location
                                 </label>
                                 <input
                                     id="location"
                                     name="location"
                                     type="text"
-                                    required
+                                    {...register("location", { required: true })}
                                     className="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                     placeholder="Location"
                                 />
+                                {errors.location && <span>This field is required</span>}
                             </div>
                             <div>
-                                <label htmlFor="password" className="sr-only">
+                                <label htmlFor="password">
                                     Password
                                 </label>
                                 <input
                                     id="password"
                                     name="password"
                                     type="password"
-                                    autoComplete="current-password"
-                                    required
+                                    {...register("password", { required: true })}
                                     className="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                                     placeholder="Password"
                                 />
+                                {errors.password && <span>This field is required</span>}
                             </div>
                             <div>
                                 <p className="mt-2 text-center text-sm text-gray-600">
@@ -129,10 +305,8 @@ const Register = () => {
                                 Register
                             </button>
                         </div>
-                        <div>
-                            
-                        </div>
                     </form>
+                    <Toaster />
                 </div>
             </div>
         </div>
