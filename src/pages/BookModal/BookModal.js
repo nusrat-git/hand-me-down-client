@@ -73,6 +73,11 @@ const BookModal = () => {
                                                     {errors.product && <span>This field is required</span>}
                                                 </div>
                                                 <div className="mb-6">
+                                                    <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Category </label>
+                                                    <input type="text" {...register("category", { required: true })} id="category" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5" defaultValue={data.category} readOnly />
+                                                    {errors.category && <span>This field is required</span>}
+                                                </div>
+                                                <div className="mb-6">
                                                     <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Location</label>
                                                     <input type="text" {...register("location", { required: true })} id="location" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 " />
                                                     {errors.location && <span>This field is required</span>}

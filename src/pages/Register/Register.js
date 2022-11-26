@@ -1,6 +1,6 @@
 import { LockClosedIcon } from '@heroicons/react/24/outline';
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
@@ -31,6 +31,8 @@ const Register = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const imgHostKey = process.env.REACT_APP_imgbb_key;
+
+    const navigate = useNavigate();
 
     const onSubmit = data => {
         console.log(data);
@@ -67,8 +69,9 @@ const Register = () => {
                                 body: JSON.stringify(user)
                             })
                                 .then(res => res.json())
-                                .then(data => {
-                                    console.log(data);
+                                .then(usrData => {
+                                    console.log(usrData);
+                                    getToken(data.email);
                                     toast.success('User created successfully');
                                 })
                                 .catch(err => console.error(err))
@@ -92,6 +95,18 @@ const Register = () => {
         handleProfile(profile)
             .then(() => { })
             .catch(error => console.error(error));
+    }
+    
+    const getToken = email =>{
+        fetch(`http://localhost:5000/jwt?email=${email}`)
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data);
+            if(data.accessToken){
+                localStorage.setItem('accessToken', data.accessToken);
+                navigate('/');
+            }
+        })
     }
 
     const [selected, setSelected] = useState(people[0])

@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import DashboardLayout from "../../layout/DashboardLayout/DashboardLayout";
 import Main from "../../layout/Main/Main";
 import AddCategory from "../../pages/AddCategory/AddCategory";
 import AddProduct from "../../pages/AddProduct/AddProduct";
@@ -6,8 +7,10 @@ import Blogs from "../../pages/Blogs/Blogs";
 import BookModal from "../../pages/BookModal/BookModal";
 import Categories from "../../pages/Categories/Categories";
 import Category from "../../pages/Category/Category";
+import Dashboard from "../../pages/Dashboard/Dashboard";
 import Home from "../../pages/Home/Home";
 import Login from "../../pages/Login/Login";
+import MyProducts from "../../pages/MyProducts/MyProducts";
 import Products from "../../pages/Products/Products";
 import Register from "../../pages/Register/Register";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
@@ -41,7 +44,7 @@ export const router = createBrowserRouter([
       {
         path: '/products/:id',
         element: <BookModal></BookModal>,
-        loader: ({params}) => fetch(`http://localhost:5000/products/${params.id}`)
+        loader: ({ params }) => fetch(`http://localhost:5000/products/${params.id}`)
       },
       {
         path: '/categories',
@@ -51,7 +54,7 @@ export const router = createBrowserRouter([
       {
         path: '/categories/:name',
         element: <PrivateRoute><Category></Category></PrivateRoute>,
-        loader: ({params}) => fetch(`http://localhost:5000/categories/${params.name}`)
+        loader: ({ params }) => fetch(`http://localhost:5000/categories/${params.name}`)
       },
       {
         path: '/addcategory',
@@ -69,6 +72,16 @@ export const router = createBrowserRouter([
         path: '/blogs',
         element: <Blogs></Blogs>
       },
+    ]
+  },
+  {
+    path: '/dashboard',
+    element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+    children: [
+      {
+        path: 'dashboard/myproducts',
+        element: <MyProducts></MyProducts>
+      }
     ]
   }
 ])
