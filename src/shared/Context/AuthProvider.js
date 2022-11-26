@@ -12,10 +12,12 @@ const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     const userRegister = (email, password) => {
+        setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password);
     }
 
     const userLogIn = (email, password) => {
+        setLoading(true);
         return signInWithEmailAndPassword(auth, email, password);
     }
 
@@ -23,6 +25,7 @@ const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             console.log('auth state chaged', user);
             setUser(currentUser);
+            setLoading(false);
         });
         return () => {
             return unsubscribe();
@@ -34,6 +37,7 @@ const AuthProvider = ({ children }) => {
     }
 
     const logOut = () => {
+        setLoading(true);
         return signOut(auth);
     }
 

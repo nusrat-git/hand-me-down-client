@@ -27,7 +27,7 @@ function classNames(...classes) {
 
 const Register = () => {
 
-    const { userRegister, handleProfile } = useContext(AuthContext);
+    const { userRegister, handleProfile,setLoading } = useContext(AuthContext);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -84,6 +84,7 @@ const Register = () => {
                                     console.log(usrData);
                                     setUserEmail(data.email);
                                     toast.success('User created successfully');
+                                    setLoading(false);
                                 })
                                 .catch(err => console.error(err))
                         }
