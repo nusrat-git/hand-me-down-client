@@ -3,11 +3,11 @@ import DashboardLayout from "../../layout/DashboardLayout/DashboardLayout";
 import Main from "../../layout/Main/Main";
 import AddCategory from "../../pages/AddCategory/AddCategory";
 import AddProduct from "../../pages/AddProduct/AddProduct";
+import AllUsers from "../../pages/AllUsers/AllUsers";
 import Blogs from "../../pages/Blogs/Blogs";
 import BookModal from "../../pages/BookModal/BookModal";
 import Categories from "../../pages/Categories/Categories";
 import Category from "../../pages/Category/Category";
-import Dashboard from "../../pages/Dashboard/Dashboard";
 import Home from "../../pages/Home/Home";
 import Login from "../../pages/Login/Login";
 import MyProducts from "../../pages/MyProducts/MyProducts";
@@ -81,7 +81,12 @@ export const router = createBrowserRouter([
       {
         path: 'dashboard/myproducts',
         element: <MyProducts></MyProducts>
+      },
+      {
+        path: 'dashboard/allusers',
+        element: <AllUsers></AllUsers>
       }
+
     ]
   }
 ])

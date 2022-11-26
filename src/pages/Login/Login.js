@@ -1,12 +1,26 @@
 import { LockClosedIcon } from '@heroicons/react/24/outline';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useToken from '../../hooks/useToken';
 import { AuthContext } from '../../shared/Context/AuthProvider';
 
 const Login = () => {
 
     const { userLogIn } = useContext(AuthContext);
+
+    const [userEmail, setUserEmail] = useState(null);
+    const navigate = useNavigate();
+
+    const token = useToken(userEmail);
+
+    useEffect(()=>{
+        if (token) {
+            navigate('/');
+        }
+    },[token, navigate])
+
+
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
@@ -14,6 +28,7 @@ const Login = () => {
         userLogIn(data.email, data.password)
             .then(result => {
                 const user = result.user;
+                setUserEmail(data.email);
                 console.log(user);
 
             })

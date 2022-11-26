@@ -9,6 +9,7 @@ export const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const userRegister = (email, password) => {
         return createUserWithEmailAndPassword(auth, email, password);
@@ -28,11 +29,11 @@ const AuthProvider = ({ children }) => {
         }
     }, [user])
 
-    const handleProfile = (profile) => { 
+    const handleProfile = (profile) => {
         return updateProfile(auth.currentUser, profile);
     }
 
-    const logOut = () =>{
+    const logOut = () => {
         return signOut(auth);
     }
 
@@ -41,7 +42,9 @@ const AuthProvider = ({ children }) => {
         userLogIn,
         user,
         handleProfile,
-        logOut
+        logOut,
+        loading,
+        setLoading
     };
 
     return (

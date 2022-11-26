@@ -4,7 +4,11 @@ import { AuthContext } from '../../shared/Context/AuthProvider';
 
 const PrivateRoute = ({ children }) => {
 
-    const { user } = useContext(AuthContext);
+    const { user, loading } = useContext(AuthContext);
+
+    // if(loading){
+    //     return <h1 className='text-2xl font-semibold'>Loading......</h1>
+    // }
 
     if (!user) {
         return <Navigate to='/login'></Navigate>

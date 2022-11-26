@@ -1,5 +1,5 @@
 import { LockClosedIcon } from '@heroicons/react/24/outline';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { Fragment, useState } from 'react'
@@ -7,6 +7,7 @@ import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import toast, { Toaster } from 'react-hot-toast';
 import { AuthContext } from '../../shared/Context/AuthProvider';
+import useToken from '../../hooks/useToken';
 
 const people = [
     {
@@ -32,7 +33,17 @@ const Register = () => {
 
     const imgHostKey = process.env.REACT_APP_imgbb_key;
 
+    const [userEmail, setUserEmail] = useState(null);
+
+    const token = useToken(userEmail);
+
     const navigate = useNavigate();
+
+    useEffect(()=>{
+        if (token) {
+            navigate('/');
+        }
+    },[token, navigate])
 
     const onSubmit = data => {
         console.log(data);
@@ -71,7 +82,7 @@ const Register = () => {
                                 .then(res => res.json())
                                 .then(usrData => {
                                     console.log(usrData);
-                                    getToken(data.email);
+                                    setUserEmail(data.email);
                                     toast.success('User created successfully');
                                 })
                                 .catch(err => console.error(err))
@@ -96,18 +107,7 @@ const Register = () => {
             .then(() => { })
             .catch(error => console.error(error));
     }
-    
-    const getToken = email =>{
-        fetch(`http://localhost:5000/jwt?email=${email}`)
-        .then(res=>res.json())
-        .then(data=>{
-            console.log(data);
-            if(data.accessToken){
-                localStorage.setItem('accessToken', data.accessToken);
-                navigate('/');
-            }
-        })
-    }
+
 
     const [selected, setSelected] = useState(people[0])
 
