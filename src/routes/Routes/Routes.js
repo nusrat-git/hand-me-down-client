@@ -6,7 +6,7 @@ import AddProduct from "../../pages/AddProduct/AddProduct";
 import AllUsers from "../../pages/AllUsers/AllUsers";
 import Blogs from "../../pages/Blogs/Blogs";
 import BookModal from "../../pages/BookModal/BookModal";
-import Categories from "../../pages/Categories/Categories";
+// import Categories from "../../pages/Categories/Categories";
 import Category from "../../pages/Category/Category";
 import Home from "../../pages/Home/Home";
 import Login from "../../pages/Login/Login";
@@ -19,12 +19,12 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: <Home></Home>,
-    loader: () => fetch('http://localhost:5000/homeCategory'),
+    loader: () => fetch('http://localhost:5000/categories'),
     children: [
       {
         path: '/home',
         element: <Home></Home>,
-        loader: () => fetch('http://localhost:5000/homeCategory')
+        loader: () => fetch('http://localhost:5000/categories')
       }
     ]
   },
@@ -41,16 +41,16 @@ export const router = createBrowserRouter([
         element: <Products></Products>,
         loader: () => fetch('http://localhost:5000/products')
       },
-      {
-        path: '/products/:id',
-        element: <BookModal></BookModal>,
-        loader: ({ params }) => fetch(`http://localhost:5000/products/${params.id}`)
-      },
-      {
-        path: '/categories',
-        element: <Categories></Categories>,
-        loader: () => fetch('http://localhost:5000/categories')
-      },
+      // {
+      //   path: '/products/:id',
+      //   element: <BookModal></BookModal>,
+      //   loader: ({ params }) => fetch(`http://localhost:5000/products/${params.id}`)
+      // },
+      // {
+      //   path: '/categories',
+      //   element: <Categories></Categories>,
+      //   loader: () => fetch('http://localhost:5000/categories')
+      // },
       {
         path: '/categories/:name',
         element: <PrivateRoute><Category></Category></PrivateRoute>,

@@ -1,9 +1,26 @@
-import React from 'react';
-import { Link, useLoaderData } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
+import { AuthContext } from '../../shared/Context/AuthProvider';
+import BookModal from '../BookModal/BookModal';
 
 const Category = () => {
     const products = useLoaderData();
-    console.log(products);
+
+    const [open, setOpen] = useState(false);
+    const [modalProduct, setModalProduct] = useState({});
+
+    const { setLoading } = useContext(AuthContext);
+
+    const handleModal = id => {
+        fetch(`http://localhost:5000/products/${id}`)
+            .then(res => res.json())
+            .then(data => {
+                setModalProduct(data);
+                setLoading(false);
+            });
+        setOpen(true);
+    }
+
 
     return (
         <div>
@@ -21,8 +38,8 @@ const Category = () => {
                     <h2 className="text-2xl font-bold tracking-tight text-gray-900">Customers also purchased</h2>
 
                     <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-                        {products.map((product) => (
-                            <div key={product.id} className="group relative">
+                        {products.map(product => (
+                            <div key={product._id} className="group relative">
                                 <div className="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
                                     <img
                                         src={product.image}
@@ -47,15 +64,15 @@ const Category = () => {
                                     <p className="text-sm font-medium text-gray-900">Original Price: {product.resale_price}$</p>
                                     <p className="text-sm font-medium text-gray-900">Use Period: {product.use_period}</p>
                                     <p className="text-sm font-medium text-gray-900">Posted: {product.time.substring(0, 10)}</p>
-                                    <Link to={`/products/${product.product}`}>
-                                        <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 my-4">Book Now</button>
-                                    </Link>
+                                    <button type="button" onClick={() => { handleModal(product._id) }} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 my-4">Book Now</button>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
+
+            <BookModal setOpen={setOpen} open={open} modalProduct={modalProduct}></BookModal>
 
         </div>
     );

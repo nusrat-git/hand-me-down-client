@@ -1,14 +1,20 @@
 import React, { useContext } from 'react';
-import { Fragment, useRef, useState } from 'react'
+import { Fragment, useRef } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { useForm } from 'react-hook-form';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../shared/Context/AuthProvider';
 import toast, { Toaster } from 'react-hot-toast';
 
-const BookModal = () => {
-    const [open, setOpen] = useState(true);
+const BookModal = ({ open, setOpen, modalProduct }) => {
+    
+    console.log(modalProduct.resale_price);
+
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const cancelButtonRef = useRef(null);
+    const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
+
     const onSubmit = data => {
         console.log(data);
         fetch('http://localhost:5000/booked', {
@@ -25,17 +31,13 @@ const BookModal = () => {
             })
             .catch(err => console.error(err))
     };
-    const navigate = useNavigate();
-
-    const data = useLoaderData();
-    const { user } = useContext(AuthContext);
 
     const handleClose = () => {
         setOpen(false);
-        navigate('/products');
+        navigate(`/categories/${modalProduct.category}`);
     }
 
-    const cancelButtonRef = useRef(null)
+
     return (
         <div>
             <Transition.Root show={open} as={Fragment}>
@@ -69,12 +71,12 @@ const BookModal = () => {
                                             <form className='pl-8' onSubmit={handleSubmit(onSubmit)}>
                                                 <div className="mb-6">
                                                     <label htmlFor="product" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Product </label>
-                                                    <input type="text" {...register("product", { required: true })} id="product" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5" defaultValue={data.product} readOnly />
+                                                    <input type="text" {...register("product", { required: true })} id="product" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5" defaultValue={modalProduct.product} readOnly />
                                                     {errors.product && <span>This field is required</span>}
                                                 </div>
                                                 <div className="mb-6">
                                                     <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Category </label>
-                                                    <input type="text" {...register("category", { required: true })} id="category" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5" defaultValue={data.category} readOnly />
+                                                    <input type="text" {...register("category", { required: true })} id="category" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5" defaultValue={modalProduct.category} readOnly />
                                                     {errors.category && <span>This field is required</span>}
                                                 </div>
                                                 <div className="mb-6">
@@ -84,7 +86,7 @@ const BookModal = () => {
                                                 </div>
                                                 <div className="mb-6">
                                                     <label htmlFor="price" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Price</label>
-                                                    <input type="text" {...register("price", { required: true })} id="price" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 " defaultValue={`${data.resale_price}$`} readOnly />
+                                                    <input type="text" {...register("price", { required: true })} id="price" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 " defaultValue={`${modalProduct.resale_price}$`} readOnly />
                                                     {errors.price && <span>This field is required</span>}
                                                 </div>
                                                 <div className="mb-6">
@@ -122,7 +124,7 @@ const BookModal = () => {
                     </div>
                 </Dialog>
             </Transition.Root>
-            <Toaster/>
+            <Toaster />
         </div>
 
     );
