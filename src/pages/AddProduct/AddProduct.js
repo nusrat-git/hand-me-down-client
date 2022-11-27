@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../shared/Context/AuthProvider';
-// import product from '../../images/products.jpg'
+import product from '../../images/products.webp'
 
 const condition = [
     {
@@ -28,7 +28,7 @@ function classNames(...classes) {
 
 const AddProduct = () => {
     const [selected, setSelected] = useState(condition[0])
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const time = new Date();
@@ -50,6 +50,7 @@ const AddProduct = () => {
                 const productDetails = {
                     category: data.category,
                     product: data.product,
+                    description: data.description,
                     image: imgData.data.url,
                     condition: data.condition,
                     location: data.location,
@@ -85,21 +86,29 @@ const AddProduct = () => {
 
     return (
         <div>
-            <div className='md:flex items-center w-fit mx-auto border rounded-2xl'>
-                <div className='py-10'>
-                    <h1 className="text-3xl font-bold mb-10 text-gray-700">Add a new product</h1>
-                    <form className='md:px-20 px-5' onSubmit={handleSubmit(onSubmit)}>
+            <div className=''>
+                <div className=' md:flex md:flex-row-reverse w-fit mx-auto border rounded-2xl'>
+                    <div>
+                        <img src={product} alt="" className='h-full'/>
+                    </div>
+                    <form className='md:px-7 px-5 py-5' onSubmit={handleSubmit(onSubmit)}>
+                        <h1 className="text-3xl font-bold mb-5 text-gray-700">Add a new product</h1>
                         <div className="mb-6">
                             <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Category </label>
-                            <input type="text" {...register("category", { required: true })} id="category" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5"  />
+                            <input type="text" {...register("category", { required: true })} id="category" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5" />
                             {errors.category && <span>This field is required</span>}
                         </div>
                         <div className="mb-6">
                             <label htmlFor="product" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Product </label>
-                            <input type="text" {...register("product", { required: true })} id="product" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5"  />
+                            <input type="text" {...register("product", { required: true })} id="product" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5" />
                             {errors.product && <span>This field is required</span>}
                         </div>
-                        <div className='mb-4'> 
+                        <div className="mb-6">
+                            <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Description </label>
+                            <input type="text" {...register("description", { required: true })} id="description" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5" />
+                            {errors.description && <span>This field is required</span>}
+                        </div>
+                        <div className='mb-4'>
                             <div>
                                 <Listbox value={selected} onChange={setSelected}>
                                     {({ open }) => (
@@ -168,47 +177,47 @@ const AddProduct = () => {
                         </div>
                         <div className="mb-6">
                             <label htmlFor="image" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Image</label>
-                            <input type="file" {...register("image", { required: true })} id="image" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 "  />
+                            <input type="file" {...register("image", { required: true })} id="image" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 " />
                             {errors.image && <span>This field is required</span>}
                         </div>
                         <div className="mb-6">
                             <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Location</label>
-                            <input type="text" {...register("location", { required: true })} id="location" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 "  />
+                            <input type="text" {...register("location", { required: true })} id="location" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 " />
                             {errors.location && <span>This field is required</span>}
                         </div>
                         <div className="mb-6">
                             <label htmlFor="resale_price" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Resale Price</label>
-                            <input type="text" {...register("resale_price", { required: true })} id="resale_price" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 "  />
+                            <input type="text" {...register("resale_price", { required: true })} id="resale_price" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 " />
                             {errors.resale_price && <span>This field is required</span>}
                         </div>
                         <div className="mb-6">
                             <label htmlFor="original_price" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Original Price</label>
-                            <input type="text" {...register("original_price", { required: true })} id="original_price" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 "  />
+                            <input type="text" {...register("original_price", { required: true })} id="original_price" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 " />
                             {errors.original_price && <span>This field is required</span>}
                         </div>
                         <div className="mb-6">
                             <label htmlFor="purchase_year" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Year of purchase</label>
-                            <input type="text" {...register("purchase_year", { required: true })} id="purchase_year" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 "  />
+                            <input type="text" {...register("purchase_year", { required: true })} id="purchase_year" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 " />
                             {errors.purchase_year && <span>This field is required</span>}
                         </div>
                         <div className="mb-6">
                             <label htmlFor="use_period" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Use Period</label>
-                            <input type="text" {...register("use_period", { required: true })} id="use_period" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 "  />
+                            <input type="text" {...register("use_period", { required: true })} id="use_period" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 " />
                             {errors.use_period && <span>This field is required</span>}
                         </div>
                         <div className="mb-6">
                             <label htmlFor="seller_name" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Your name </label>
                             <input type="text" {...register("seller_name", { required: true })} id="seller_name" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 " defaultValue={user?.displayName} readOnly />
                             {errors.seller_name && <span>This field is required</span>}
-                        </div>     
+                        </div>
                         <div className="mb-6">
                             <label htmlFor="seller_email" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Your name </label>
                             <input type="text" {...register("seller_email", { required: true })} id="seller_email" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 " defaultValue={user?.email} readOnly />
                             {errors.seller_email && <span>This field is required</span>}
-                        </div>     
+                        </div>
                         <div className="mb-6">
                             <label htmlFor="seller_phone" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Your number</label>
-                            <input type="text" {...register("seller_phone", { required: true })} id="seller_phone" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 "  />
+                            <input type="text" {...register("seller_phone", { required: true })} id="seller_phone" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 " />
                             {errors.seller_phone && <span>This field is required</span>}
                         </div>
                         <input type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " placeholder='Add' />
