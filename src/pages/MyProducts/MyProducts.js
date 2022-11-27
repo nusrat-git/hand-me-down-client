@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../shared/Context/AuthProvider';
@@ -23,6 +24,33 @@ const MyProducts = () => {
         }
     })
 
+    const handleDelete = id =>{
+        fetch(`http://localhost:5000/products/${id}`,{
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                toast.success('Product deleted successfully');
+            });
+    }
+
+    const handleAdvertise = id =>{
+        fetch(`http://localhost:5000/products/${id}`)
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data);
+            fetch('http://localhost:5000/advertised',{
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            toast.success('Advertised product in homepage')
+        })
+    }
+
     return (
         <div>
             <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
@@ -39,10 +67,10 @@ const MyProducts = () => {
                                 Category
                             </th>
                             <th scope="col" className="py-3 px-6">
-                                Price
+                                
                             </th>
                             <th scope="col" className="py-3 px-6">
-                                <span className="sr-only">Edit</span>
+                                <span className="sr-only"></span>
                             </th>
                         </tr>
                     </thead>
@@ -59,17 +87,14 @@ const MyProducts = () => {
                                     <td className="py-4 px-6">
                                         {book.category}
                                     </td>
-                                    <td className="py-4 px-6">
-                                        {book.price}
-                                    </td>
-                                    <td className="py-4 px-6 text-right">
-                                        <Link href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</Link>
-                                    </td>
+                                    <td><button onClick={()=>{handleDelete(book._id)}}>Delete</button></td>
+                                    <td><button onClick={()=>{handleAdvertise(book._id)}}>Advertise</button></td>
                                 </tr>)
                         }
                     </tbody>
                 </table>
             </div>
+            <Toaster/>
         </div>
     );
 };
