@@ -10,7 +10,7 @@ const MyProducts = () => {
 
     const url = `http://localhost:5000/products?email=${user?.email}`;
 
-    const { data: products = [] } = useQuery({
+    const { data: products = [] , refetch} = useQuery({
         queryKey: ['products', user.email],
         queryFn: async () => {
             const res = await fetch(url, {
@@ -31,6 +31,7 @@ const MyProducts = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
+                refetch();
                 toast.success('Product deleted successfully');
             });
     }
