@@ -27,7 +27,7 @@ function classNames(...classes) {
 
 const Register = () => {
 
-    const { userRegister, handleProfile,setLoading } = useContext(AuthContext);
+    const { userRegister, handleProfile, setLoading, googleSignIn } = useContext(AuthContext);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -39,11 +39,11 @@ const Register = () => {
 
     const navigate = useNavigate();
 
-    useEffect(()=>{
+    useEffect(() => {
         if (token) {
             navigate('/');
         }
-    },[token, navigate])
+    }, [token, navigate])
 
     const onSubmit = data => {
         console.log(data);
@@ -107,6 +107,13 @@ const Register = () => {
         handleProfile(profile)
             .then(() => { })
             .catch(error => console.error(error));
+    }
+
+    const handleGoogle =()=>{
+        googleSignIn()
+        .then(res=>res.json())
+        .then(data=>console.log(data))
+        .catch(err=>console.log(err))
     }
 
 
@@ -323,6 +330,17 @@ const Register = () => {
                             </button>
                         </div>
                     </form>
+                    <hr />
+                        <div>
+                            <button onClick={handleGoogle}
+                                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                            >
+                                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                                    <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
+                                </span>
+                                Sign in with google
+                            </button>
+                        </div>
                     <Toaster />
                 </div>
             </div>
