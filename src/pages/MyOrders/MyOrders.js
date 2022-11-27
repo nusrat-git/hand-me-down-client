@@ -1,9 +1,13 @@
 import React, { useContext } from 'react';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
+import useTitle from '../../hooks/useTitle';
 import { AuthContext } from '../../shared/Context/AuthProvider';
 
 const MyOrders = () => {
+
+    useTitle('My Orders');
+     
     const { user } = useContext(AuthContext);
 
     const url = `http://localhost:5000/booked?email=${user?.email}`;

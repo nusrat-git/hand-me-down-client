@@ -1,8 +1,10 @@
 import React from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useQuery } from 'react-query';
+import useTitle from '../../hooks/useTitle';
 
 const Sellers = () => {
+    useTitle('Sellers');
     const { data: sellers = [], refetch } = useQuery({
         queryKey: ['sellers'],
         queryFn: async () => {
@@ -13,8 +15,8 @@ const Sellers = () => {
         }
     });
 
-    const handleDelete = email =>{
-        fetch(`http://localhost:5000/users/${email}`,{
+    const handleDelete = email => {
+        fetch(`http://localhost:5000/users/${email}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -71,14 +73,14 @@ const Sellers = () => {
                                         {seller.role}
                                     </td>
                                     <td className="py-4 px-6 text-right">
-                                        <button onClick={()=>{handleDelete(seller.email)}} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</button>
+                                        <button onClick={() => { handleDelete(seller.email) }} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</button>
                                     </td>
                                 </tr>)
                         }
                     </tbody>
                 </table>
             </div>
-            <Toaster/>
+            <Toaster />
         </div>
     );
 };

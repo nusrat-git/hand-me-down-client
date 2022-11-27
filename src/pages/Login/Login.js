@@ -5,8 +5,11 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useToken from '../../hooks/useToken';
 import { AuthContext } from '../../shared/Context/AuthProvider';
 import Logo from '../../logo.ico';
+import useTitle from '../../hooks/useTitle';
 
 const Login = () => {
+
+    useTitle('Login');
 
     const { userLogIn, setLoading, googleSignIn } = useContext(AuthContext);
 

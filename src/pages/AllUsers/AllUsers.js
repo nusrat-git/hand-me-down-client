@@ -1,8 +1,11 @@
 import React from 'react';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
+import useTitle from '../../hooks/useTitle';
 
 const AllUsers = () => {
+
+    useTitle('Users');
 
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],

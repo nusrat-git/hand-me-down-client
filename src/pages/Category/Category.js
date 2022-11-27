@@ -1,9 +1,12 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
+import useTitle from '../../hooks/useTitle';
 import BookModal from '../Bookmodal/BookModal';
 
 const Category = () => {
     const products = useLoaderData();
+
+    useTitle('Category');
 
     return (
         <div>

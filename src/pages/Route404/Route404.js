@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import useTitle from '../../hooks/useTitle';
 
 const Route404 = () => {
+    useTitle('Error 404')
     return (
         <div className='bg-[url("/src/404route.jpg")] h-[900px]'>
             <main>

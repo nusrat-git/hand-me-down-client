@@ -9,6 +9,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { AuthContext } from '../../shared/Context/AuthProvider';
 import useToken from '../../hooks/useToken';
 import Logo from '../../logo.ico';
+import useTitle from '../../hooks/useTitle';
 
 const people = [
     {
@@ -27,6 +28,8 @@ function classNames(...classes) {
 
 
 const Register = () => {
+
+    useTitle('Register');
 
     const { userRegister, handleProfile, setLoading, googleSignIn } = useContext(AuthContext);
 

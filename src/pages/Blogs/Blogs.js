@@ -1,4 +1,5 @@
 import React from 'react';
+import useTitle from '../../hooks/useTitle';
 
 
 const callouts = [
@@ -39,6 +40,7 @@ const callouts = [
 ]
 
 const Blogs = () => {
+    useTitle('Blogs');
     return (
         <div>
             <div className="bg-gray-100 mt-6">

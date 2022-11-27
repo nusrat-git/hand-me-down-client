@@ -1,8 +1,12 @@
 import React from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useQuery } from 'react-query';
+import useTitle from '../../hooks/useTitle';
 
 const Buyers = () => {
+
+    useTitle('Buyers');
+
     const { data: buyers = [], refetch } = useQuery({
         queryKey: ['buyers'],
         queryFn: async () => {

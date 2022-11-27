@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
+import useTitle from '../../hooks/useTitle';
 import { AuthContext } from '../../shared/Context/AuthProvider';
 
 const MyProducts = () => {
+    
+    useTitle('My Products');
 
     const { user } = useContext(AuthContext);
 

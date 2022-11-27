@@ -6,6 +6,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../shared/Context/AuthProvider';
 import product from '../../images/products.webp'
+import useTitle from '../../hooks/useTitle';
 
 const condition = [
     {
@@ -27,6 +28,7 @@ function classNames(...classes) {
 }
 
 const AddProduct = () => {
+    useTitle('Add Product');
     const [selected, setSelected] = useState(condition[0])
     const { user } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
