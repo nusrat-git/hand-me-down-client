@@ -3,14 +3,13 @@ import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../shared/Context/AuthProvider';
 
-const MyProducts = () => {
-
+const MyOrders = () => {
     const { user } = useContext(AuthContext);
 
-    const url = `http://localhost:5000/products?email=${user?.email}`;
+    const url = `http://localhost:5000/booked?email=${user?.email}`;
 
-    const { data: products = [] } = useQuery({
-        queryKey: ['products', user.email],
+    const { data: booked = [] } = useQuery({
+        queryKey: ['Booked', user.email],
         queryFn: async () => {
             const res = await fetch(url, {
                 headers: {
@@ -25,6 +24,7 @@ const MyProducts = () => {
 
     return (
         <div>
+
             <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -48,7 +48,7 @@ const MyProducts = () => {
                     </thead>
                     <tbody>
                         {
-                            products.map((book, i) =>
+                            booked.map((book, i) =>
                                 <tr key={book._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                     <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         {i + 1}. {book.product}
@@ -70,8 +70,9 @@ const MyProducts = () => {
                     </tbody>
                 </table>
             </div>
+
         </div>
     );
 };
 
-export default MyProducts;
+export default MyOrders;

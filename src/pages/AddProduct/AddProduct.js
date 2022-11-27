@@ -1,9 +1,11 @@
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
-import product from '../../images/products.jpg'
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../shared/Context/AuthProvider';
+// import product from '../../images/products.jpg'
 
 const condition = [
     {
@@ -26,7 +28,9 @@ function classNames(...classes) {
 
 const AddProduct = () => {
     const [selected, setSelected] = useState(condition[0])
+    const {user} = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
     const time = new Date();
 
     const imgHostKey = process.env.REACT_APP_imgbb_key;
@@ -52,6 +56,7 @@ const AddProduct = () => {
                     original_price: data.original_price,
                     resale_price: data.resale_price,
                     seller: data.seller_name,
+                    seller_email: data.seller_email,
                     seller_phone: data.seller_phone,
                     purchase_year: data.purchase_year,
                     use_period: data.use_period,
@@ -70,6 +75,7 @@ const AddProduct = () => {
                         .then(data => {
                             console.log(data);
                             toast.success('Product added successfully');
+                            navigate('/dashboard/myproducts');
                         })
                         .catch(err => console.error(err))
                 }
@@ -78,7 +84,7 @@ const AddProduct = () => {
 
     return (
         <div>
-            <div className='my-10 md:flex items-center w-fit mx-auto border rounded-2xl'>
+            <div className='md:flex items-center w-fit mx-auto border rounded-2xl'>
                 <div className='py-10'>
                     <h1 className="text-3xl font-bold mb-10 text-gray-700">Add a new product</h1>
                     <form className='md:px-20 px-5' onSubmit={handleSubmit(onSubmit)}>
@@ -191,8 +197,13 @@ const AddProduct = () => {
                         </div>
                         <div className="mb-6">
                             <label htmlFor="seller_name" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Your name </label>
-                            <input type="text" {...register("seller_name", { required: true })} id="seller_name" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 "  />
+                            <input type="text" {...register("seller_name", { required: true })} id="seller_name" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 " defaultValue={user?.displayName} readOnly />
                             {errors.seller_name && <span>This field is required</span>}
+                        </div>     
+                        <div className="mb-6">
+                            <label htmlFor="seller_email" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Your name </label>
+                            <input type="text" {...register("seller_email", { required: true })} id="seller_email" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 " defaultValue={user?.email} readOnly />
+                            {errors.seller_email && <span>This field is required</span>}
                         </div>     
                         <div className="mb-6">
                             <label htmlFor="seller_phone" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Your number</label>
@@ -202,7 +213,6 @@ const AddProduct = () => {
                         <input type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " placeholder='Add' />
                     </form>
                 </div>
-                <img src={product} alt="sofa" className=' md:h-[955px] rounded-tr-xl rounded-br-xl' />
                 <Toaster />
             </div>
         </div>

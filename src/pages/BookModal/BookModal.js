@@ -8,7 +8,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const BookModal = ({ open, setOpen, modalProduct }) => {
     
-    console.log(modalProduct.resale_price);
+    // console.log(modalProduct.resale_price);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const cancelButtonRef = useRef(null);
