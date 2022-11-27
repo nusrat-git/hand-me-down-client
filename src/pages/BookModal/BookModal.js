@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
 import Modal from 'react-modal';
@@ -15,8 +15,8 @@ const BookModal = ({ product }) => {
             transform: 'translate(-50%, -50%)',
         },
     };
-    let subtitle;
-    const [modalIsOpen, setIsOpen] = React.useState(false);
+    // let subtitle;
+    const [modalIsOpen, setIsOpen] = useState(false);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { user } = useContext(AuthContext);
@@ -43,9 +43,9 @@ const BookModal = ({ product }) => {
         setIsOpen(true);
     }
 
-    function afterOpenModal() {
-        subtitle.style.color = '#f00';
-    }
+    // function afterOpenModal() {
+    //     subtitle.style.color = '#f00';
+    // }
 
     function closeModal() {
         setIsOpen(false);
@@ -56,12 +56,13 @@ const BookModal = ({ product }) => {
                 <button onClick={openModal} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 my-4">Book Now</button>
                 <Modal
                     isOpen={modalIsOpen}
-                    onAfterOpen={afterOpenModal}
+                    // onAfterOpen={afterOpenModal}
                     onRequestClose={closeModal}
                     style={customStyles}
                     contentLabel="Example Modal"
+                    ariaHideApp={false}
                 >
-                    <form>
+                    <div>
                         <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                             <div className=''>
                                 <form className='pl-8' onSubmit={handleSubmit(onSubmit)}>
@@ -107,7 +108,7 @@ const BookModal = ({ product }) => {
                                 </form>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </Modal>
             </div>
             <Toaster />
