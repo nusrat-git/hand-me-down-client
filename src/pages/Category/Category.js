@@ -1,26 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import { useLoaderData } from 'react-router-dom';
-import { AuthContext } from '../../shared/Context/AuthProvider';
-import BookModal from '../BookModal/BookModal';
+import BookModal from '../Bookmodal/BookModal';
 
 const Category = () => {
     const products = useLoaderData();
-
-    const [open, setOpen] = useState(false);
-    const [modalProduct, setModalProduct] = useState({});
-
-    const { setLoading } = useContext(AuthContext);
-
-    const handleModal = id => {
-        fetch(`http://localhost:5000/products/${id}`)
-            .then(res => res.json())
-            .then(data => {
-                setModalProduct(data);
-                setLoading(false);
-            });
-        setOpen(true);
-    }
-
 
     return (
         <div>
@@ -64,15 +47,13 @@ const Category = () => {
                                     <p className="text-sm font-medium text-gray-900">Original Price: {product.resale_price}$</p>
                                     <p className="text-sm font-medium text-gray-900">Use Period: {product.use_period}</p>
                                     <p className="text-sm font-medium text-gray-900">Posted: {product.time.substring(0, 10)}</p>
-                                    <button type="button" onClick={() => { handleModal(product._id) }} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 my-4">Book Now</button>
+                                    <BookModal key={product._id} product={product}></BookModal>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
-
-            <BookModal setOpen={setOpen} open={open} modalProduct={modalProduct}></BookModal>
 
         </div>
     );
