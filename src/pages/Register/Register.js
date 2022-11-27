@@ -8,6 +8,7 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import toast, { Toaster } from 'react-hot-toast';
 import { AuthContext } from '../../shared/Context/AuthProvider';
 import useToken from '../../hooks/useToken';
+import Logo from '../../logo.ico';
 
 const people = [
     {
@@ -126,7 +127,7 @@ const Register = () => {
                     <div>
                         <img
                             className="mx-auto h-12 w-auto"
-                            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                            src={Logo}
                             alt="Your Company"
                         />
                         <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">

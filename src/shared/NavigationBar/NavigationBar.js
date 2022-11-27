@@ -4,12 +4,10 @@ import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvider';
+import Logo from '../../logo.ico';
 
 const navigation = [
     { name: 'Home', to: '/' },
-    // { name: 'Products', to: '/products' },
-    // { name: 'AddP', to: '/addproduct' },
-    // { name: 'Categories', to: '/categories' },
     { name: 'AddC', to: '/addcategory' },
     { name: 'Dashboard', to: '/dashboard' },
     { name: 'Blogs', to: '/blogs' },
@@ -38,9 +36,9 @@ const NavigationBar = () => {
                     <div>
                         <nav className="flex h-9 items-center justify-between" aria-label="Global">
                             <div className="flex lg:min-w-0 lg:flex-1" aria-label="Global">
-                                <Link to="/" className="-m-1.5 p-1.5">
-                                    <span className="sr-only">Your Company</span>
-                                    <img className="h-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
+                                <Link to="/" className=" flex items-center gap-2">
+                                    <img className="h-12" src={Logo} alt="" />
+                                    <h1 className='text-lg font-extrabold italic text-gray-600'>HAND ME DOWN</h1>
                                 </Link>
                             </div>
                             <div className="flex lg:hidden">
@@ -82,13 +80,9 @@ const NavigationBar = () => {
                             <Dialog.Panel focus="true" className="fixed inset-0 z-10 overflow-y-auto bg-white px-6 py-6 lg:hidden">
                                 <div className="flex h-9 items-center justify-between">
                                     <div className="flex">
-                                        <Link to="/" className="-m-1.5 p-1.5">
-                                            <span className="sr-only">Your Company</span>
-                                            <img
-                                                className="h-8"
-                                                src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                                                alt=""
-                                            />
+                                        <Link to="/" className=" flex items-center gap-2">
+                                            <img className="h-12" src={Logo} alt="" />
+                                            <h1 className='text-lg font-extrabold italic text-gray-600'>HAND ME DOWN</h1>
                                         </Link>
                                     </div>
                                     <div className="flex">
