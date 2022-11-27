@@ -1,4 +1,5 @@
 import React from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import useTitle from '../../hooks/useTitle';
@@ -20,6 +21,22 @@ const AllUsers = () => {
 
         }
     });
+
+    const handleDelete = id => {
+        fetch(`http://localhost:5000/users/${id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                refetch();
+                toast.success('User deleted successfully');
+            });
+    }
 
     const handleAdmin = id => {
 
@@ -92,13 +109,14 @@ const AllUsers = () => {
                                         }
                                     </td>
                                     <td className="py-4 px-6 text-right">
-                                        <Link href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</Link>
+                                    <button onClick={()=>{handleDelete(usr._id)}} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Delete</button>
                                     </td>
                                 </tr>)
                         }
                     </tbody>
                 </table>
             </div>
+            <Toaster/>
         </div>
     );
 };

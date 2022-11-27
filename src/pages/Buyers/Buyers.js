@@ -21,9 +21,13 @@ const Buyers = () => {
         }
     });
 
-    const handleDelete = email => {
-        fetch(`http://localhost:5000/users/${email}`, {
-            method: 'DELETE'
+    const handleDelete = id => {
+        fetch(`http://localhost:5000/buyers/${id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+
+            }
         })
             .then(res => res.json())
             .then(data => {
@@ -35,7 +39,7 @@ const Buyers = () => {
 
     return (
         <div>
-            <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
+           <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
@@ -45,17 +49,11 @@ const Buyers = () => {
                             <th scope="col" className="py-3 px-6">
                                 Email
                             </th>
-                            <th scope="col" className="py-3 px-6">
-                                Number
+                            <th scope="col" className="py-3 px-6 text-right">
+                                Delete
                             </th>
-                            <th scope="col" className="py-3 px-6">
-                                Location
-                            </th>
-                            <th scope="col" className="py-3 px-6">
-                                Role
-                            </th>
-                            <th scope="col" className="py-3 px-6">
-                                <span className="sr-only"></span>
+                            <th scope="col" className="py-3 px-6 text-right">
+                                Verify
                             </th>
                         </tr>
                     </thead>
@@ -69,17 +67,11 @@ const Buyers = () => {
                                     <td className="py-4 px-6">
                                         {buyer.email}
                                     </td>
-                                    <td className="py-4 px-6">
-                                        {buyer.phone}
-                                    </td>
-                                    <td className="py-4 px-6">
-                                        {buyer.location}
-                                    </td>
-                                    <td className="py-4 px-6">
-                                        {buyer.role}
+                                    <td className="py-4 px-6 text-right">
+                                        <button onClick={() => { handleDelete(buyer._id) }} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</button>
                                     </td>
                                     <td className="py-4 px-6 text-right">
-                                        <button onClick={() => { handleDelete(buyer.email) }} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</button>
+                                        <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Verify</button>
                                     </td>
                                 </tr>)
                         }

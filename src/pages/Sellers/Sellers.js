@@ -19,9 +19,13 @@ const Sellers = () => {
         }
     });
 
-    const handleDelete = email => {
-        fetch(`http://localhost:5000/users/${email}`, {
-            method: 'DELETE'
+    const handleDelete = id => {
+        fetch(`http://localhost:5000/sellers/${id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+
+            }
         })
             .then(res => res.json())
             .then(data => {
@@ -43,17 +47,11 @@ const Sellers = () => {
                             <th scope="col" className="py-3 px-6">
                                 Email
                             </th>
-                            <th scope="col" className="py-3 px-6">
-                                Number
+                            <th scope="col" className="py-3 px-6 text-right">
+                                Delete
                             </th>
-                            <th scope="col" className="py-3 px-6">
-                                Location
-                            </th>
-                            <th scope="col" className="py-3 px-6">
-                                Role
-                            </th>
-                            <th scope="col" className="py-3 px-6">
-                                <span className="sr-only"></span>
+                            <th scope="col" className="py-3 px-6 text-right">
+                                Verify
                             </th>
                         </tr>
                     </thead>
@@ -67,17 +65,11 @@ const Sellers = () => {
                                     <td className="py-4 px-6">
                                         {seller.email}
                                     </td>
-                                    <td className="py-4 px-6">
-                                        {seller.phone}
-                                    </td>
-                                    <td className="py-4 px-6">
-                                        {seller.location}
-                                    </td>
-                                    <td className="py-4 px-6">
-                                        {seller.role}
+                                    <td className="py-4 px-6 text-right">
+                                        <button onClick={() => { handleDelete(seller._id) }} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</button>
                                     </td>
                                     <td className="py-4 px-6 text-right">
-                                        <button onClick={() => { handleDelete(seller.email) }} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</button>
+                                        <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Verify</button>
                                     </td>
                                 </tr>)
                         }
