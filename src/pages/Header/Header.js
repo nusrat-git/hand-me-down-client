@@ -7,9 +7,6 @@ import { AuthContext } from '../../shared/Context/AuthProvider';
 
 const navigation = [
     { name: 'Home', to: '/' },
-    // { name: 'Products', to: '/products' },
-    // { name: 'AddP', to: '/addproduct' },
-    // { name: 'Categories', to: '/categories' },
     { name: 'AddC', to: '/addcategory' },
     { name: 'Dashboard', to: '/dashboard' },
     { name: 'Blogs', to: '/blogs' },

@@ -5,15 +5,15 @@ import AddCategory from "../../pages/AddCategory/AddCategory";
 import AddProduct from "../../pages/AddProduct/AddProduct";
 import AllUsers from "../../pages/AllUsers/AllUsers";
 import Blogs from "../../pages/Blogs/Blogs";
-// import BookModal from "../../pages/BookModal/BookModal";
-// import Categories from "../../pages/Categories/Categories";
+import Buyers from "../../pages/Buyers/Buyers";
 import Category from "../../pages/Category/Category";
 import Home from "../../pages/Home/Home";
 import Login from "../../pages/Login/Login";
 import MyOrders from "../../pages/MyOrders/MyOrders";
 import MyProducts from "../../pages/MyProducts/MyProducts";
-// import Products from "../../pages/Products/Products";
 import Register from "../../pages/Register/Register";
+import Route404 from "../../pages/Route404/Route404";
+import Sellers from "../../pages/Sellers/Sellers";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
@@ -33,25 +33,6 @@ export const router = createBrowserRouter([
     path: '/',
     element: <Main></Main>,
     children: [
-      // {
-      //   path: '/addproduct',
-      //   element: <AddProduct></AddProduct>
-      // },
-      // {
-      //   path: '/products',
-      //   element: <Products></Products>,
-      //   loader: () => fetch('http://localhost:5000/products')
-      // },
-      // {
-      //   path: '/products/:id',
-      //   element: <BookModal></BookModal>,
-      //   loader: ({ params }) => fetch(`http://localhost:5000/products/${params.id}`)
-      // },
-      // {
-      //   path: '/categories',
-      //   element: <Categories></Categories>,
-      //   loader: () => fetch('http://localhost:5000/categories')
-      // },
       {
         path: '/categories/:name',
         element: <PrivateRoute><Category></Category></PrivateRoute>,
@@ -72,7 +53,7 @@ export const router = createBrowserRouter([
       {
         path: '/blogs',
         element: <Blogs></Blogs>
-      },
+      }
     ]
   },
   {
@@ -88,6 +69,14 @@ export const router = createBrowserRouter([
         element: <AllUsers></AllUsers>
       },
       {
+        path: 'dashboard/allsellers',
+        element: <Sellers></Sellers>
+      },
+      {
+        path: 'dashboard/allbuyers',
+        element: <Buyers></Buyers>
+      },
+      {
         path: 'dashboard/addproduct',
         element: <AddProduct></AddProduct>
       },
@@ -97,5 +86,9 @@ export const router = createBrowserRouter([
       },
 
     ]
+  },
+  {
+    path: '*',
+    element: <Route404></Route404>
   }
 ])
