@@ -5,14 +5,14 @@ import useTitle from '../../hooks/useTitle';
 import { AuthContext } from '../../shared/Context/AuthProvider';
 
 const MyProducts = () => {
-    
+
     useTitle('My Products');
 
     const { user } = useContext(AuthContext);
 
     const url = `http://localhost:5000/products?email=${user?.email}`;
 
-    const { data: products = [] , refetch} = useQuery({
+    const { data: products = [], refetch } = useQuery({
         queryKey: ['products', user.email],
         queryFn: async () => {
             const res = await fetch(url, {
@@ -26,9 +26,13 @@ const MyProducts = () => {
         }
     })
 
-    const handleDelete = id =>{
-        fetch(`http://localhost:5000/products/${id}`,{
-            method: 'DELETE'
+    const handleDelete = id => {
+        fetch(`http://localhost:5000/products/${id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+
+            }
         })
             .then(res => res.json())
             .then(data => {
@@ -38,20 +42,20 @@ const MyProducts = () => {
             });
     }
 
-    const handleAdvertise = id =>{
+    const handleAdvertise = id => {
         fetch(`http://localhost:5000/products/${id}`)
-        .then(res=>res.json())
-        .then(data=>{
-            console.log(data);
-            fetch('http://localhost:5000/advertised',{
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(data)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                fetch('http://localhost:5000/advertised', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                toast.success('Advertised product in homepage')
             })
-            toast.success('Advertised product in homepage')
-        })
     }
 
     return (
@@ -70,7 +74,7 @@ const MyProducts = () => {
                                 Category
                             </th>
                             <th scope="col" className="py-3 px-6">
-                                
+
                             </th>
                             <th scope="col" className="py-3 px-6">
                                 <span className="sr-only"></span>
@@ -90,14 +94,14 @@ const MyProducts = () => {
                                     <td className="py-4 px-6">
                                         {book.category}
                                     </td>
-                                    <td><button onClick={()=>{handleDelete(book._id)}}>Delete</button></td>
-                                    <td><button onClick={()=>{handleAdvertise(book._id)}}>Advertise</button></td>
+                                    <td><button onClick={() => { handleDelete(book._id) }}>Delete</button></td>
+                                    <td><button onClick={() => { handleAdvertise(book._id) }}>Advertise</button></td>
                                 </tr>)
                         }
                     </tbody>
                 </table>
             </div>
-            <Toaster/>
+            <Toaster />
         </div>
     );
 };

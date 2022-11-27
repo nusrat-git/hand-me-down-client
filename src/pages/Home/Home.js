@@ -11,7 +11,11 @@ const Home = () => {
     const { data: advertised = [] } = useQuery({
         queryKey: ['advertised'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/advertised');
+            const res = await fetch('http://localhost:5000/advertised', {
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
             const data = await res.json();
             return data;
         }

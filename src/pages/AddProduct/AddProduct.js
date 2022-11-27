@@ -70,7 +70,8 @@ const AddProduct = () => {
                     fetch('http://localhost:5000/products', {
                         method: 'POST',
                         headers: {
-                            'content-type': 'application/json'
+                            'content-type': 'application/json',
+                            authorization: `bearer ${localStorage.getItem('accessToken')}`
                         },
                         body: JSON.stringify(productDetails)
                     })
@@ -91,7 +92,7 @@ const AddProduct = () => {
             <div className=''>
                 <div className=' md:flex md:flex-row-reverse w-fit mx-auto border rounded-2xl'>
                     <div>
-                        <img src={product} alt="" className='h-full'/>
+                        <img src={product} alt="" className='h-full' />
                     </div>
                     <form className='md:px-7 px-5 py-5' onSubmit={handleSubmit(onSubmit)}>
                         <h1 className="text-3xl font-bold mb-5 text-gray-700">Add a new product</h1>

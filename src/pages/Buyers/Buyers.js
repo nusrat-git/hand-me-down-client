@@ -10,15 +10,19 @@ const Buyers = () => {
     const { data: buyers = [], refetch } = useQuery({
         queryKey: ['buyers'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/buyers');
+            const res = await fetch('http://localhost:5000/buyers', {
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
             const data = await res.json();
             return data;
 
         }
     });
 
-    const handleDelete = email =>{
-        fetch(`http://localhost:5000/users/${email}`,{
+    const handleDelete = email => {
+        fetch(`http://localhost:5000/users/${email}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -31,7 +35,7 @@ const Buyers = () => {
 
     return (
         <div>
-           <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
+            <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
@@ -75,14 +79,14 @@ const Buyers = () => {
                                         {buyer.role}
                                     </td>
                                     <td className="py-4 px-6 text-right">
-                                        <button onClick={()=>{handleDelete(buyer.email)}} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</button>
+                                        <button onClick={() => { handleDelete(buyer.email) }} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</button>
                                     </td>
                                 </tr>)
                         }
                     </tbody>
                 </table>
             </div>
-            <Toaster/> 
+            <Toaster />
         </div>
     );
 };

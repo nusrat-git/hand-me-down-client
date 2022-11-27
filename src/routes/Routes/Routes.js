@@ -16,6 +16,7 @@ import Route404 from "../../pages/Route404/Route404";
 import Sellers from "../../pages/Sellers/Sellers";
 import AdminRoute from "../AdminRoute/AdminRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import SellerRoute from "../SellerRoute/SellerRoute";
 
 export const router = createBrowserRouter([
   {
@@ -37,7 +38,11 @@ export const router = createBrowserRouter([
       {
         path: '/categories/:name',
         element: <PrivateRoute><Category></Category></PrivateRoute>,
-        loader: ({ params }) => fetch(`http://localhost:5000/categories/${params.name}`)
+        loader: ({ params }) => fetch(`http://localhost:5000/categories/${params.name}`, {
+          headers: {
+            authorization: `bearer ${localStorage.getItem('accessToken')}`
+          }
+        })
       },
       {
         path: '/addcategory',
@@ -63,7 +68,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: 'dashboard/myproducts',
-        element: <MyProducts></MyProducts>
+        element: <SellerRoute><MyProducts></MyProducts></SellerRoute>
       },
       {
         path: 'dashboard/allusers',
@@ -79,7 +84,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'dashboard/addproduct',
-        element: <AddProduct></AddProduct>
+        element: <SellerRoute><AddProduct></AddProduct></SellerRoute>
       },
       {
         path: 'dashboard/myorders',
