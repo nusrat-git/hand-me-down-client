@@ -2,7 +2,6 @@ import React from 'react';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import Footer from '../../shared/Footer/Footer';
-import BookModal2 from '../Bookmodal/BookModal';
 import Categories from '../Categories/Categories';
 import Header from '../Header/Header';
 import Promo from '../Promo/Promo';
@@ -54,7 +53,6 @@ const Home = () => {
             <div className=" mt-32">
                 <Promo></Promo>
             </div>
-            <BookModal2></BookModal2>
             <Footer></Footer>
         </div>
     );

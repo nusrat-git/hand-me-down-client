@@ -65,7 +65,7 @@ const BookModal = ({ product }) => {
                             <div className=''>
                                 <form className='pl-8' onSubmit={handleSubmit(onSubmit)}>
                                     <div className="mb-6">
-                                        <label htmlFor="modalProduct" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Product </label>
+                                        <label htmlFor="product" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Product </label>
                                         <input type="text" {...register("product", { required: true })} id="product" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5" defaultValue={product.product} readOnly />
                                         {errors.product && <span>This field is required</span>}
                                     </div>
