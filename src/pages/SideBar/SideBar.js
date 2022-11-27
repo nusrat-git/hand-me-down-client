@@ -19,8 +19,8 @@ const buyer = [
 ]
 
 const seller = [
-    { name: 'Add Product', to: 'dashboard/addproduct' },
     { name: 'My Products', to: 'dashboard/myproducts' },
+    { name: 'Add Product', to: 'dashboard/addproduct' },
     { name: 'My Buyers', to: 'dashboard/mybuyers' }
 ]
 

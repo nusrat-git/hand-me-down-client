@@ -77,7 +77,7 @@ const AddProduct = () => {
                             console.log(data);
                             toast.success('Product added successfully');
                             // navigate('/myproducts');
-                            // navigate('dashboard/dashboard/myproducts');
+                            navigate('/dashboard/dashboard/myproducts');
                         })
                         .catch(err => console.error(err))
                 }
