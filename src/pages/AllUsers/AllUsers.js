@@ -10,7 +10,11 @@ const AllUsers = () => {
     const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/users');
+            const res = await fetch('http://localhost:5000/users', {
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
             const data = await res.json();
             return data;
 
@@ -22,14 +26,14 @@ const AllUsers = () => {
         fetch(`http://localhost:5000/users/admin/${id}`, {
             method: 'PUT',
             headers: {
-                authorization : `bearer ${localStorage.getItem('accessToken')}`
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
         })
             .then(res => res.json())
-            .then(data => { 
+            .then(data => {
                 console.log(data);
                 refetch();
-             })
+            })
             .catch(err => console.log(err))
 
     }

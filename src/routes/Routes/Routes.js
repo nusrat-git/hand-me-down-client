@@ -14,6 +14,7 @@ import MyProducts from "../../pages/MyProducts/MyProducts";
 import Register from "../../pages/Register/Register";
 import Route404 from "../../pages/Route404/Route404";
 import Sellers from "../../pages/Sellers/Sellers";
+import AdminRoute from "../AdminRoute/AdminRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
@@ -66,15 +67,15 @@ export const router = createBrowserRouter([
       },
       {
         path: 'dashboard/allusers',
-        element: <AllUsers></AllUsers>
+        element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
       },
       {
         path: 'dashboard/allsellers',
-        element: <Sellers></Sellers>
+        element: <AdminRoute><Sellers></Sellers></AdminRoute>
       },
       {
         path: 'dashboard/allbuyers',
-        element: <Buyers></Buyers>
+        element: <AdminRoute><Buyers></Buyers></AdminRoute>
       },
       {
         path: 'dashboard/addproduct',

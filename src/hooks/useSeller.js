@@ -1,9 +1,8 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../shared/Context/AuthProvider";
+import { useEffect, useState } from "react";
 
 const useSeller = email => {
     const [isSeller, setIsSeller] = useState(false);
-    const {setLoading}= useContext(AuthContext); 
+    const [isSellerLoading, setIsSellerLoading] = useState(true);
     useEffect(() => {
         if (email) {
             fetch(`http://localhost:5000/users/seller/${email}`)
@@ -11,12 +10,12 @@ const useSeller = email => {
                 .then(data => {
                     console.log(data);
                     setIsSeller(data.isSeller);
-                    setLoading(false);
+                    setIsSellerLoading(false);
                 })
         }
     }, [email]);
 
-    return [isSeller];
+    return [isSeller, isSellerLoading];
 }
 
 export default useSeller; 
