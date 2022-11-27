@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
 import Modal from 'react-modal';
+// import 'react-responsive-modal/lib/react-responsive-modal.css';
 import { AuthContext } from '../../shared/Context/AuthProvider';
 
 const BookModal = ({ product }) => {
@@ -9,10 +10,13 @@ const BookModal = ({ product }) => {
         content: {
             top: '50%',
             left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            marginRight: '-50%',
+            // right: 'auto',
+            // bottom: 'auto',
+            // marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
+            width: '550px',
+            height : '700px'
+
         },
     };
     // let subtitle;
@@ -61,6 +65,8 @@ const BookModal = ({ product }) => {
                     style={customStyles}
                     contentLabel="Example Modal"
                     ariaHideApp={false}
+                    shouldCloseOnOverlayClick={false}
+
                 >
                     <div>
                         <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
@@ -75,6 +81,11 @@ const BookModal = ({ product }) => {
                                         <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Category </label>
                                         <input type="text" {...register("category", { required: true })} id="category" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5" defaultValue={product.category} readOnly />
                                         {errors.category && <span>This field is required</span>}
+                                    </div>
+                                    <div className="mb-6">
+                                        <label htmlFor="image" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Image </label>
+                                        <input type="text" {...register("image", { required: true })} id="image" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5" defaultValue={product.image} readOnly />
+                                        {errors.image && <span>This field is required</span>}
                                     </div>
                                     <div className="mb-6">
                                         <label htmlFor="location" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Location</label>

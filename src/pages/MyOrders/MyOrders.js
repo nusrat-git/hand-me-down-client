@@ -7,7 +7,7 @@ import { AuthContext } from '../../shared/Context/AuthProvider';
 const MyOrders = () => {
 
     useTitle('My Orders');
-     
+
     const { user } = useContext(AuthContext);
 
     const url = `http://localhost:5000/booked?email=${user?.email}`;
@@ -34,19 +34,16 @@ const MyOrders = () => {
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" className="py-3 px-6">
-                                Product name
+                                Image
                             </th>
                             <th scope="col" className="py-3 px-6">
-                                Location
-                            </th>
-                            <th scope="col" className="py-3 px-6">
-                                Category
+                                Name
                             </th>
                             <th scope="col" className="py-3 px-6">
                                 Price
                             </th>
-                            <th scope="col" className="py-3 px-6">
-                                <span className="sr-only">Edit</span>
+                            <th scope="col" className="py-3 px-6 text-right">
+                                Pay
                             </th>
                         </tr>
                     </thead>
@@ -55,19 +52,18 @@ const MyOrders = () => {
                             booked.map((book, i) =>
                                 <tr key={book._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                     <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {i + 1}. {book.product}
+                                        <div className='flex items-center gap-4'>
+                                            {i + 1}. <img src={book.image} alt="" className=' w-14 rounded-full' />
+                                        </div>
                                     </th>
-                                    <td className="py-4 px-6">
-                                        {book.location}
-                                    </td>
-                                    <td className="py-4 px-6">
-                                        {book.category}
-                                    </td>
+                                    <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        {book.product}
+                                    </th>
                                     <td className="py-4 px-6">
                                         {book.price}
                                     </td>
                                     <td className="py-4 px-6 text-right">
-                                        <Link href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</Link>
+                                        <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">pay</button>
                                     </td>
                                 </tr>)
                         }
