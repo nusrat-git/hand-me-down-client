@@ -14,6 +14,7 @@ const Login = () => {
     const { userLogIn, setLoading, googleSignIn } = useContext(AuthContext);
 
     const [userEmail, setUserEmail] = useState(null);
+    const [error, setError] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -37,14 +38,17 @@ const Login = () => {
                 const user = result.user;
                 console.log(user);
                 setUserEmail(data.email);
-                setLoading(false);
 
             })
-            .catch((error) => {
+            .catch(error => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(errorCode, errorMessage);
-            });
+                setError(errorMessage);
+            })
+            .finally(() => {
+                setLoading(false);
+            })
     };
 
     const handleGoogle = (event) => {
@@ -59,6 +63,7 @@ const Login = () => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(errorCode, errorMessage);
+                setError(errorMessage);
             })
             .finally(() => {
                 setLoading(false);
@@ -111,6 +116,14 @@ const Login = () => {
                                     placeholder="Password"
                                 />
                                 {errors.password && <span>This field is required</span>}
+                            </div>
+                            <div>
+                                {
+                                    error &&
+                                    <div className="text-red-400">
+                                        <span>{error.split(')')[0].split('/')[1]}</span>
+                                    </div>
+                                }
                             </div>
                             <div>
                                 <p className="mt-2 text-center text-sm text-gray-600">

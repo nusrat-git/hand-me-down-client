@@ -39,6 +39,8 @@ const Register = () => {
 
     const [userEmail, setUserEmail] = useState(null);
 
+    const [error, setError] = useState('');
+
     const token = useToken(userEmail);
 
     const navigate = useNavigate();
@@ -92,17 +94,20 @@ const Register = () => {
                                     console.log(usrData);
                                     setUserEmail(data.email);
                                     toast.success('User created successfully');
-                                    setLoading(false);
                                 })
                                 .catch(err => console.error(err))
                         }
                     })
             })
-            .catch((error) => {
+            .catch(error => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(errorCode, errorMessage);
-            });
+                setError(errorMessage);
+            })
+            .finally(() => {
+                setLoading(false);
+            })
 
     };
 
@@ -150,6 +155,7 @@ const Register = () => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(errorCode, errorMessage);
+                setError(errorMessage);
             })
             .finally(() => {
                 setLoading(false);
@@ -327,6 +333,14 @@ const Register = () => {
                                     placeholder="Password"
                                 />
                                 {errors.password && <span>This field is required</span>}
+                            </div>
+                            <div>
+                                {
+                                    error &&
+                                    <div className="text-red-400">
+                                        <span>{error.split(')')[0].split('/')[1]}</span>
+                                    </div>
+                                }
                             </div>
                             <div>
                                 <p className="mt-2 text-center text-sm text-gray-600">
