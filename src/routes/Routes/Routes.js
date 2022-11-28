@@ -12,7 +12,6 @@ import Home from "../../pages/Home/Home";
 import Login from "../../pages/Login/Login";
 import MyOrders from "../../pages/MyOrders/MyOrders";
 import MyProducts from "../../pages/MyProducts/MyProducts";
-import Payment from "../../pages/Payment/Payment";
 import Register from "../../pages/Register/Register";
 import ReportedItems from "../../pages/ReportedItems/ReportedItems";
 import Route404 from "../../pages/Route404/Route404";
