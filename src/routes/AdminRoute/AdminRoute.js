@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { InfinitySpin } from 'react-loader-spinner';
 import { Navigate, useLocation } from 'react-router-dom';
 import useAdmin from '../../hooks/useAdmin';
 import { AuthContext } from '../../shared/Context/AuthProvider';
@@ -10,7 +11,7 @@ const AdminRoute = ({ children }) => {
     const location = useLocation();
 
     if (loading || isAdminLoading) {
-        return <h1 className='text-2xl font-semibold'>Loading......</h1>
+        return <InfinitySpin></InfinitySpin>
     }
 
     if (user && isAdmin) {
