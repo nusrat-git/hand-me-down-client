@@ -70,12 +70,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: 'dashboard/myproducts/:email',
-        element: <SellerRoute><MyProducts></MyProducts></SellerRoute>,
-        loader: ({ params }) => fetch(`http://localhost:5000/myproducts/${params.email}`, {
-          headers: {
-            authorization: `bearer ${localStorage.getItem('accessToken')}`
-          }
-        })
+        element: <SellerRoute><MyProducts></MyProducts></SellerRoute>
       },
       {
         path: 'dashboard/allusers',
