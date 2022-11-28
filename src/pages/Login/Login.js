@@ -47,11 +47,23 @@ const Login = () => {
             });
     };
 
-    const handleGoogle = () => {
+    const handleGoogle = (event) => {
+        event.preventDefault();
         googleSignIn()
-            .then(res => res.json())
-            .then(data => console.log(data))
-            .catch(err => console.log(err))
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                navigate(from, { replace: true });
+            })
+            .catch(error => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+            })
+            .finally(() => {
+                setLoading(false);
+            })
+
     }
 
     return (

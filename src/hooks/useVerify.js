@@ -12,7 +12,6 @@ const useVerify = email => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
                     setIsVerified(data.isVerified);
                     setIsVerifiedLoading(false);
                 })

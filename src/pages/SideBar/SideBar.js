@@ -11,7 +11,8 @@ const admin = [
     { name: 'All Users', to: 'dashboard/allusers' },
     { name: 'All Sellers', to: 'dashboard/allsellers' },
     { name: 'All Buyers', to: 'dashboard/allbuyers' },
-    { name: 'Reported Item', to: 'dashboard/reporteditems' }
+    { name: 'Reported Item', to: 'dashboard/reporteditems' },
+    { name: 'Add Category', to: '/addcategory' },
 ]
 
 const buyer = [

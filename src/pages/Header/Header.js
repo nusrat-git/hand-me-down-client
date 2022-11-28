@@ -8,7 +8,6 @@ import Logo from '../../logo.ico';
 
 const navigation = [
     { name: 'Home', to: '/' },
-    { name: 'AddC', to: '/addcategory' },
     { name: 'Dashboard', to: '/dashboard' },
     { name: 'Blogs', to: '/blogs' },
 ]

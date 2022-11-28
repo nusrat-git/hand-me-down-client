@@ -50,10 +50,6 @@ export const router = createBrowserRouter([
         })
       },
       {
-        path: '/addcategory',
-        element: <AddCategory></AddCategory>
-      },
-      {
         path: '/login',
         element: <Login></Login>
       },
@@ -99,6 +95,10 @@ export const router = createBrowserRouter([
       {
         path: 'dashboard/reporteditems',
         element: <ReportedItems></ReportedItems>
+      },
+      {
+        path: 'dashboard/addcategory',
+        element: <AddCategory></AddCategory>
       },
       // {
       //   path: 'dashboard/payment/:id',

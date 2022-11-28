@@ -1,6 +1,6 @@
 import { LockClosedIcon } from '@heroicons/react/24/outline';
 import React, { useContext, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
@@ -31,7 +31,7 @@ const Register = () => {
 
     useTitle('Register');
 
-    const { userRegister, handleProfile, setLoading, googleSignIn } = useContext(AuthContext);
+    const { userRegister, handleProfile, setLoading, googleSignIn, setUser } = useContext(AuthContext);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
 
@@ -42,6 +42,10 @@ const Register = () => {
     const token = useToken(userEmail);
 
     const navigate = useNavigate();
+
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || '/';
 
     useEffect(() => {
         if (token) {
@@ -69,9 +73,9 @@ const Register = () => {
                             name: data.name,
                             image: imgData.data.url,
                             email: data.email,
-                            phone: data.phone,
                             role: selected.name,
-                            location: data.location,
+                            // phone: data.phone,
+                            // location: data.location,
 
                         };
                         if (imgData.success) {
@@ -113,28 +117,43 @@ const Register = () => {
             .catch(error => console.error(error));
     }
 
-    const handleGoogle = () => {
+    const handleGoogle = (event) => {
+        event.preventDefault();
         googleSignIn()
-            .then(res => res.json())
-            .then(data => {
-                console.log(data.email);
-                // fetch('http://localhost:5000/users', {
-                //     method: 'POST',
-                //     headers: {
-                //         'content-type': 'application/json'
-                //     },
-                //     body: JSON.stringify(data)
-                // })
-                //     .then(res => res.json())
-                //     .then(usrData => {
-                //         console.log(usrData);
-                //         setUserEmail(data.email);
-                //         toast.success('User created successfully');
-                //         setLoading(false);
-                //     })
-                //     .catch(err => console.error(err))
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                setUser(user);
+                const googleUser = {
+                    name: user.displayName,
+                    image: user.photoURL,
+                    email: user.email,
+                    role: 'Buyer',
+                }
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(googleUser)
+                })
+                    .then(res => res.json())
+                    .then(usrData => {
+                        console.log(usrData);
+                        setUserEmail(user.email);
+                        toast.success('User created successfully');
+                    })
+                    .catch(err => console.error(err))
+                navigate(from, { replace: true });
             })
-            .catch(err => console.log(err))
+            .catch(error => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage);
+            })
+            .finally(() => {
+                setLoading(false);
+            })
     }
 
 
@@ -200,7 +219,7 @@ const Register = () => {
                                 />
                                 {errors.email && <span>This field is required</span>}
                             </div>
-                            <div>
+                            {/* <div>
                                 <label htmlFor="phone-number">
                                     Phone number
                                 </label>
@@ -213,7 +232,7 @@ const Register = () => {
                                     placeholder="Phone number"
                                 />
                                 {errors.phone && <span>This field is required</span>}
-                            </div>
+                            </div> */}
                             <div>
                                 <div>
                                     <Listbox value={selected} onChange={setSelected}>
@@ -281,7 +300,7 @@ const Register = () => {
                                     </Listbox>
                                 </div>
                             </div>
-                            <div>
+                            {/* <div>
                                 <label htmlFor="location">
                                     Location
                                 </label>
@@ -294,7 +313,7 @@ const Register = () => {
                                     placeholder="Location"
                                 />
                                 {errors.location && <span>This field is required</span>}
-                            </div>
+                            </div> */}
                             <div>
                                 <label htmlFor="password">
                                     Password
