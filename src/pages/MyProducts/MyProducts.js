@@ -95,6 +95,9 @@ const MyProducts = () => {
                                                 Category
                                             </th>
                                             <th scope="col" className="py-3 px-6">
+                                                Status
+                                            </th>
+                                            <th scope="col" className="py-3 px-6">
 
                                             </th>
                                             <th scope="col" className="py-3 px-6">
@@ -114,6 +117,9 @@ const MyProducts = () => {
                                                     </td>
                                                     <td className="py-4 px-6">
                                                         {book.category}
+                                                    </td>
+                                                    <td className="py-4 px-6">
+                                                        Available
                                                     </td>
                                                     <td><button onClick={() => { handleDelete(book._id) }}>Delete</button></td>
                                                     <td><button onClick={() => { handleAdvertise(book._id) }}>Advertise</button></td>
