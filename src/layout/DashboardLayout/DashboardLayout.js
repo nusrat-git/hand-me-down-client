@@ -8,11 +8,11 @@ const DashboardLayout = () => {
     return (
         <div>
             <NavigationBar></NavigationBar>
-            <div className='flex gap-12'>
+            <div className='lg:flex gap-12'>
                 <div className=''>
                     <SideBar></SideBar>
                 </div>
-                <div className='w-full lg:mt-10 lg:mr-10'>
+                <div className='w-full mt-20 lg:mt-10 lg:mr-10'>
                     <Outlet></Outlet>
                 </div>
             </div>

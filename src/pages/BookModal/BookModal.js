@@ -14,7 +14,7 @@ const BookModal = ({ product }) => {
             // bottom: 'auto',
             // marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
-            width: '550px',
+            // width: '550px',
             height : '700px'
 
         },
@@ -66,6 +66,7 @@ const BookModal = ({ product }) => {
                     contentLabel="Example Modal"
                     ariaHideApp={false}
                     shouldCloseOnOverlayClick={false}
+                    className="w-full relative top-2/4 overflow-scroll md:w-[500px]"
 
                 >
                     <div>

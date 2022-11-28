@@ -5,7 +5,7 @@ const useVerify = email => {
     const [isVerifiedLoading, setIsVerifiedLoading] = useState(true);
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:5000/users/seller/verified/${email}`, {
+            fetch(`http://localhost:5000/users/seller/verified`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }

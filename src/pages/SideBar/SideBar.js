@@ -32,10 +32,9 @@ const SideBar = () => {
         { name: 'My Buyers', to: 'dashboard/mybuyers' }
     ]
 
-    // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     return (
         <div className='mt-10'>
-            <aside className=" w-56" aria-label="Sidebar">
+            <aside className="w-full md:w-56" aria-label="Sidebar">
                 <div className="overflow-y-auto py-6 px-3 bg-gray-50 rounded dark:bg-gray-800">
                     <ul className="space-y-2">
                         {isAdmin === false && isSeller === false &&

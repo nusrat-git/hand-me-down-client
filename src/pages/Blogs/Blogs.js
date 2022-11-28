@@ -50,7 +50,7 @@ const Blogs = () => {
 
                         <div className="mt-6 space-y-12 grid grid-cols-1 gap-20 lg:space-y-0">
                             {callouts.map((callout) => (
-                                <div key={callout.name} className="group relative shadow-lg rounded-3xl md:p-10">
+                                <div key={callout.name} className="group relative shadow-lg rounded-3xl md:p-10 p-5">
                                     <h3 className="mt-6 text-2xl font-bold mb-6 text-gray-500">
                                         {callout.name}
                                     </h3>
