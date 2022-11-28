@@ -70,7 +70,7 @@ const AddProduct = () => {
                 };
                 console.log(productDetails);
                 if (imgData.success) {
-                    fetch('http://localhost:5000/products', {
+                    fetch('https://hand-me-down-server.vercel.app/products', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

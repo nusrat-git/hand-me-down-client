@@ -12,7 +12,7 @@ const Home = () => {
     const { data: advertised = [] } = useQuery({
         queryKey: ['advertised'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/advertised', {
+            const res = await fetch('https://hand-me-down-server.vercel.app/advertised', {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -24,7 +24,7 @@ const Home = () => {
 
     const handleReport = id => {
 
-        fetch(`http://localhost:5000/products/${id}`, {
+        fetch(`https://hand-me-down-server.vercel.app/products/${id}`, {
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
@@ -32,7 +32,7 @@ const Home = () => {
             .then(res => res.json())
             .then(repData => {
                 console.log(repData);
-                fetch('http://localhost:5000/reported', {
+                fetch('https://hand-me-down-server.vercel.app/reported', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json',

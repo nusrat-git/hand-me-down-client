@@ -82,7 +82,7 @@ const Register = () => {
                         };
                         if (imgData.success) {
                             handleUser(data.name, imgData.data.url);
-                            fetch('http://localhost:5000/users', {
+                            fetch('https://hand-me-down-server.vercel.app/users', {
                                 method: 'POST',
                                 headers: {
                                     'content-type': 'application/json'
@@ -135,7 +135,7 @@ const Register = () => {
                     email: user.email,
                     role: 'Buyer',
                 }
-                fetch('http://localhost:5000/users', {
+                fetch('https://hand-me-down-server.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

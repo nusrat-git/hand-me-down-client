@@ -30,7 +30,7 @@ const AddCategory = () => {
                 };
                 console.log(category);
                 if (imgData.success) {
-                    fetch('http://localhost:5000/categories', {
+                    fetch('https://hand-me-down-server.vercel.app/categories', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',

@@ -14,7 +14,7 @@ const MyProducts = () => {
     const { data: products = [], refetch } = useQuery({
         queryKey: ['products'],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/myproducts/${user?.email}`, {
+            const res = await fetch(`https://hand-me-down-server.vercel.app/myproducts/${user?.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -26,7 +26,7 @@ const MyProducts = () => {
     });
 
     const handleDelete = id => {
-        fetch(`http://localhost:5000/products/${id}`, {
+        fetch(`https://hand-me-down-server.vercel.app/products/${id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -36,7 +36,7 @@ const MyProducts = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                fetch(`http://localhost:5000/advertised/${id}`, {
+                fetch(`https://hand-me-down-server.vercel.app/advertised/${id}`, {
                     method: 'DELETE',
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -53,7 +53,7 @@ const MyProducts = () => {
     }
 
     const handleAdvertise = id => {
-        fetch(`http://localhost:5000/advertised/${id}`, {
+        fetch(`https://hand-me-down-server.vercel.app/advertised/${id}`, {
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
@@ -61,7 +61,7 @@ const MyProducts = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                fetch('http://localhost:5000/advertised', {
+                fetch('https://hand-me-down-server.vercel.app/advertised', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json',

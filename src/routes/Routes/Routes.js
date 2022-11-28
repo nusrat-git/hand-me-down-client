@@ -7,6 +7,7 @@ import AllUsers from "../../pages/AllUsers/AllUsers";
 import Blogs from "../../pages/Blogs/Blogs";
 import Buyers from "../../pages/Buyers/Buyers";
 import Category from "../../pages/Category/Category";
+import Dashboard from "../../pages/Dashboard/Dashboard";
 import Home from "../../pages/Home/Home";
 import Login from "../../pages/Login/Login";
 import MyOrders from "../../pages/MyOrders/MyOrders";
@@ -25,13 +26,13 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: <Home></Home>,
-    loader: () => fetch('http://localhost:5000/categories'),
+    loader: () => fetch('https://hand-me-down-server.vercel.app/categories'),
     errorElement: <DisplayError></DisplayError>,
     children: [
       {
         path: '/home',
         element: <Home></Home>,
-        loader: () => fetch('http://localhost:5000/categories')
+        loader: () => fetch('https://hand-me-down-server.vercel.app/categories')
       }
     ]
   },
@@ -43,7 +44,7 @@ export const router = createBrowserRouter([
       {
         path: '/categories/:name',
         element: <PrivateRoute><Category></Category></PrivateRoute>,
-        loader: ({ params }) => fetch(`http://localhost:5000/categories/${params.name}`, {
+        loader: ({ params }) => fetch(`https://hand-me-down-server.vercel.app/categories/${params.name}`, {
           headers: {
             authorization: `bearer ${localStorage.getItem('accessToken')}`
           }
@@ -68,6 +69,10 @@ export const router = createBrowserRouter([
     element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
     errorElement: <DisplayError></DisplayError>,
     children: [
+      {
+        path: '/dashboard',
+        element: <Dashboard></Dashboard>
+      },
       {
         path: 'dashboard/myproducts/:email',
         element: <SellerRoute><MyProducts></MyProducts></SellerRoute>
@@ -103,7 +108,7 @@ export const router = createBrowserRouter([
       // {
       //   path: 'dashboard/payment/:id',
       //   element: <Payment></Payment>,
-      //   loader: ({ params }) => fetch(`http://localhost:5000/booked/${params.id}`, {
+      //   loader: ({ params }) => fetch(`https://hand-me-down-server.vercel.app/booked/${params.id}`, {
       //     headers: {
       //       authorization: `bearer ${localStorage.getItem('accessToken')}`
       //     }

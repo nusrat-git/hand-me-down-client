@@ -15,7 +15,7 @@ const BookModal = ({ product }) => {
             // marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
             // width: '550px',
-            height : '700px'
+            height: '700px'
 
         },
     };
@@ -27,7 +27,7 @@ const BookModal = ({ product }) => {
 
     const onSubmit = data => {
         console.log(data);
-        fetch('http://localhost:5000/booked', {
+        fetch('https://hand-me-down-server.vercel.app/booked', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

@@ -9,7 +9,7 @@ const ReportedItems = () => {
     const { data: reported = [], refetch } = useQuery({
         queryKey: ['reported'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/reported', {
+            const res = await fetch('https://hand-me-down-server.vercel.app/reported', {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -21,7 +21,7 @@ const ReportedItems = () => {
     });
 
     const handleDelete = id => {
-        fetch(`http://localhost:5000/reported/${id}`, {
+        fetch(`https://hand-me-down-server.vercel.app/reported/${id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -84,7 +84,7 @@ const ReportedItems = () => {
                         </table>
                     </div>
             }
-            <Toaster/>
+            <Toaster />
         </div>
     );
 };

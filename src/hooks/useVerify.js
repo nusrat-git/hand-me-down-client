@@ -5,7 +5,7 @@ const useVerify = email => {
     const [isVerifiedLoading, setIsVerifiedLoading] = useState(true);
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:5000/users/seller/verified/${email}`, {
+            fetch(`https://hand-me-down-server.vercel.app/users/seller/verified/${email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
