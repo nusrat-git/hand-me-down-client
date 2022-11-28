@@ -7,30 +7,31 @@ import useAdmin from '../../hooks/useAdmin';
 import useSeller from '../../hooks/useSeller';
 import { AuthContext } from '../../shared/Context/AuthProvider';
 
-const admin = [
-    { name: 'All Users', to: 'dashboard/allusers' },
-    { name: 'All Sellers', to: 'dashboard/allsellers' },
-    { name: 'All Buyers', to: 'dashboard/allbuyers' },
-    { name: 'Reported Item', to: 'dashboard/reporteditems' },
-    { name: 'Add Category', to: '/addcategory' },
-]
-
-const buyer = [
-    { name: 'My Orders', to: 'dashboard/myorders' }
-]
-
-const seller = [
-    { name: 'My Products', to: 'dashboard/myproducts' },
-    { name: 'Add Product', to: 'dashboard/addproduct' },
-    { name: 'My Buyers', to: 'dashboard/mybuyers' }
-]
-
 
 const SideBar = () => {
 
     const { user } = useContext(AuthContext);
     const [isAdmin] = useAdmin(user?.email);
     const [isSeller] = useSeller(user?.email);
+
+    const admin = [
+        { name: 'All Users', to: 'dashboard/allusers' },
+        { name: 'All Sellers', to: 'dashboard/allsellers' },
+        { name: 'All Buyers', to: 'dashboard/allbuyers' },
+        { name: 'Reported Item', to: 'dashboard/reporteditems' },
+        { name: 'Add Category', to: '/addcategory' },
+    ]
+
+    const buyer = [
+        { name: 'My Orders', to: 'dashboard/myorders' }
+    ]
+
+    const seller = [
+        { name: 'My Products', to: `dashboard/myproducts/${user.email}` },
+        { name: 'Add Product', to: 'dashboard/addproduct' },
+        { name: 'My Buyers', to: 'dashboard/mybuyers' }
+    ]
+
     // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     return (
         <div className='mt-10'>

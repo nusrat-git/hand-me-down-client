@@ -1,30 +1,33 @@
 import React, { useContext } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import { useQuery } from 'react-query';
+// import { useQuery } from 'react-query';
+import { useLoaderData } from 'react-router-dom';
 import useTitle from '../../hooks/useTitle';
-import { AuthContext } from '../../shared/Context/AuthProvider';
+// import { AuthContext } from '../../shared/Context/AuthProvider';
 
 const MyProducts = () => {
 
     useTitle('My Products');
 
-    const { user } = useContext(AuthContext);
+    // const { user } = useContext(AuthContext);
 
-    const url = `http://localhost:5000/products?email=${user?.email}`;
+    const productData = useLoaderData();
 
-    const { data: products = [], refetch } = useQuery({
-        queryKey: ['products', user.email],
-        queryFn: async () => {
-            const res = await fetch(url, {
-                headers: {
-                    authorization: `bearer ${localStorage.getItem('accessToken')}`
-                }
-            });
-            const data = await res.json();
-            // console.log(data);
-            return data;
-        }
-    })
+    // const { data: products = [], refetch } = useQuery({
+    //     queryKey: ['products'],
+    //     queryFn: async () => {
+    //         const res = await fetch(`http://localhost:5000/products?email=${user?.email}`, {
+    //             headers: {
+    //                 authorization: `bearer ${localStorage.getItem('accessToken')}`
+    //             }
+    //         });
+    //         const data = await res.json();
+    //         return data;
+
+    //     }
+    // });
+
+    // http://localhost:5000/myproducts/shakil@gmail.com
 
     const handleDelete = id => {
         fetch(`http://localhost:5000/products/${id}`, {
@@ -37,20 +40,25 @@ const MyProducts = () => {
             .then(res => res.json())
             .then(data => {
                 console.log(data);
-                refetch();
+                // refetch();
                 toast.success('Product deleted successfully');
             });
     }
 
     const handleAdvertise = id => {
-        fetch(`http://localhost:5000/products/${id}`)
+        fetch(`http://localhost:5000/advertised/${id}`, {
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
                 console.log(data);
                 fetch('http://localhost:5000/advertised', {
                     method: 'POST',
                     headers: {
-                        'content-type': 'application/json'
+                        'content-type': 'application/json',
+                        authorization: `bearer ${localStorage.getItem('accessToken')}`
                     },
                     body: JSON.stringify(data)
                 })
@@ -62,7 +70,7 @@ const MyProducts = () => {
         <div>
             <div>
                 {
-                    products.length === 0 ?
+                    productData.length === 0 ?
                         <h1>You no products for sale</h1>
                         :
                         <div>
@@ -89,7 +97,7 @@ const MyProducts = () => {
                                     </thead>
                                     <tbody>
                                         {
-                                            products.map((book, i) =>
+                                            productData.map((book, i) =>
                                                 <tr key={book._id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                                     <th scope="row" className="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                         {i + 1}. {book.product}

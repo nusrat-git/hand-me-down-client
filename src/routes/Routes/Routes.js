@@ -69,8 +69,13 @@ export const router = createBrowserRouter([
     errorElement: <DisplayError></DisplayError>,
     children: [
       {
-        path: 'dashboard/myproducts',
-        element: <SellerRoute><MyProducts></MyProducts></SellerRoute>
+        path: 'dashboard/myproducts/:email',
+        element: <SellerRoute><MyProducts></MyProducts></SellerRoute>,
+        loader: ({ params }) => fetch(`http://localhost:5000/myproducts/${params.email}`, {
+          headers: {
+            authorization: `bearer ${localStorage.getItem('accessToken')}`
+          }
+        })
       },
       {
         path: 'dashboard/allusers',

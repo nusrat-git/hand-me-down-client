@@ -78,8 +78,8 @@ const AddProduct = () => {
                         .then(res => res.json())
                         .then(data => {
                             console.log(data);
-                            toast.success('Product added successfully');
                             navigate('/dashboard/dashboard/myproducts');
+                            toast.success('Product added successfully');
                         })
                         .catch(err => console.error(err))
                 }
