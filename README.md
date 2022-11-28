@@ -1,3 +1,17 @@
+##### Project live link 
+https://hand-me-down-e8b07.web.app/
+
+##### Project features
+
+* Single page application
+* Mobile and tablet responsive
+* Firebase Authentication
+* Live data from Mongodb database 
+* Diferrent user role based routes
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
