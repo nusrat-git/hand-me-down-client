@@ -1,4 +1,5 @@
 import React from 'react';
+import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
 import Footer from '../../shared/Footer/Footer';
 import BookModal from '../Bookmodal/BookModal';
@@ -21,6 +22,33 @@ const Home = () => {
         }
     })
 
+    const handleReport = id => {
+
+        fetch(`http://localhost:5000/products/${id}`, {
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(repData => {
+                console.log(repData);
+                fetch('http://localhost:5000/reported', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json',
+                        authorization: `bearer ${localStorage.getItem('accessToken')}`
+                    },
+                    body: JSON.stringify(repData)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        toast.success('Reported successfully');
+                    })
+                    .catch(err => console.error(err))
+            })
+    }
+
     return (
         <div>
             <Header></Header>
@@ -40,7 +68,10 @@ const Home = () => {
                                         <img src={product.image} alt={product.name} className='md:w-[384px] h-[264px] rounded-3xl w-full' />
                                         <div className='-mt-40'>
                                             <h1 className='font-bold text-2xl text-black mb-2 shadow-md'>{product.product}</h1>
-                                            <BookModal key={product._id} product={product}></BookModal>
+                                            <div className='flex items-center justify-center'>
+                                                <button onClick={() => { handleReport(product._id) }} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 my-4">Report</button>
+                                                <BookModal key={product._id} product={product}></BookModal>
+                                            </div>
                                         </div>
                                     </div>
                                 )

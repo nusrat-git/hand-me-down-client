@@ -113,11 +113,28 @@ const Register = () => {
             .catch(error => console.error(error));
     }
 
-    const handleGoogle =()=>{
+    const handleGoogle = () => {
         googleSignIn()
-        .then(res=>res.json())
-        .then(data=>console.log(data))
-        .catch(err=>console.log(err))
+            .then(res => res.json())
+            .then(data => {
+                console.log(data.email);
+                // fetch('http://localhost:5000/users', {
+                //     method: 'POST',
+                //     headers: {
+                //         'content-type': 'application/json'
+                //     },
+                //     body: JSON.stringify(data)
+                // })
+                //     .then(res => res.json())
+                //     .then(usrData => {
+                //         console.log(usrData);
+                //         setUserEmail(data.email);
+                //         toast.success('User created successfully');
+                //         setLoading(false);
+                //     })
+                //     .catch(err => console.error(err))
+            })
+            .catch(err => console.log(err))
     }
 
 
@@ -335,16 +352,16 @@ const Register = () => {
                         </div>
                     </form>
                     <hr />
-                        <div>
-                            <button onClick={handleGoogle}
-                                className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                            >
-                                <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                                    <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
-                                </span>
-                                Sign in with google
-                            </button>
-                        </div>
+                    <div>
+                        <button onClick={handleGoogle}
+                            className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        >
+                            <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                                <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
+                            </span>
+                            Register with google
+                        </button>
+                    </div>
                     <Toaster />
                 </div>
             </div>

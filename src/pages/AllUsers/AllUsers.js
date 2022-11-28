@@ -1,7 +1,6 @@
 import React from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useQuery } from 'react-query';
-import { Link } from 'react-router-dom';
 import useTitle from '../../hooks/useTitle';
 
 const AllUsers = () => {

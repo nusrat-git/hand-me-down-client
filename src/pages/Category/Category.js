@@ -1,4 +1,5 @@
 import React from 'react';
+import toast from 'react-hot-toast';
 import { useLoaderData } from 'react-router-dom';
 import useTitle from '../../hooks/useTitle';
 import BookModal from '../Bookmodal/BookModal';
@@ -7,6 +8,33 @@ const Category = () => {
     const products = useLoaderData();
 
     useTitle('Category');
+
+    const handleReport = id => {
+
+        fetch(`http://localhost:5000/products/${id}`, {
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(repData => {
+                console.log(repData);
+                fetch('http://localhost:5000/reported', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json',
+                        authorization: `bearer ${localStorage.getItem('accessToken')}`
+                    },
+                    body: JSON.stringify(repData)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        toast.success('Reported successfully');
+                    })
+                    .catch(err => console.error(err))
+            })
+    }
 
     return (
         <div>
@@ -43,7 +71,10 @@ const Category = () => {
                                     <p className="text-sm font-medium text-gray-900 mb-2">Original Price: {product.original_price}$</p>
                                     <p className="text-sm font-medium text-gray-900 mb-2">Use Period: {product.use_period}</p>
                                     <p className="text-sm font-medium text-gray-900 mb-2">Posted: {product.time.substring(0, 10)}</p>
-                                    <BookModal key={product._id} product={product}></BookModal>
+                                    <div className=''>
+                                        <button onClick={() => { handleReport(product._id) }} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 my-4">Report</button>
+                                        <BookModal key={product._id} product={product}></BookModal>
+                                    </div>
                                 </div>
                             </div>
                         ))}

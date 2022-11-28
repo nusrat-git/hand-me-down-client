@@ -12,6 +12,7 @@ import Login from "../../pages/Login/Login";
 import MyOrders from "../../pages/MyOrders/MyOrders";
 import MyProducts from "../../pages/MyProducts/MyProducts";
 import Register from "../../pages/Register/Register";
+import ReportedItems from "../../pages/ReportedItems/ReportedItems";
 import Route404 from "../../pages/Route404/Route404";
 import Sellers from "../../pages/Sellers/Sellers";
 import AdminRoute from "../AdminRoute/AdminRoute";
@@ -90,6 +91,10 @@ export const router = createBrowserRouter([
         path: 'dashboard/myorders',
         element: <MyOrders></MyOrders>
       },
+      {
+        path: 'dashboard/reporteditems',
+        element: <ReportedItems></ReportedItems>
+      }
 
     ]
   },
