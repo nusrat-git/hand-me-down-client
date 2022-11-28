@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../shared/Context/AuthProvider';
 import product from '../../images/products.webp'
 import useTitle from '../../hooks/useTitle';
+import useVerify from '../../hooks/useVerify';
 
 const condition = [
     {
@@ -34,6 +35,7 @@ const AddProduct = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const time = new Date();
+    const [isVerified] = useVerify(user?.email);
 
     const imgHostKey = process.env.REACT_APP_imgbb_key;
 
@@ -59,6 +61,7 @@ const AddProduct = () => {
                     original_price: data.original_price,
                     resale_price: data.resale_price,
                     seller: data.seller_name,
+                    seller_verified: data.seller_verify,
                     seller_email: data.seller_email,
                     seller_phone: data.seller_phone,
                     purchase_year: data.purchase_year,
@@ -211,6 +214,11 @@ const AddProduct = () => {
                             <label htmlFor="seller_name" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Your name </label>
                             <input type="text" {...register("seller_name", { required: true })} id="seller_name" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 " defaultValue={user?.displayName} readOnly />
                             {errors.seller_name && <span>This field is required</span>}
+                        </div>
+                        <div className="mb-6">
+                            <label htmlFor="seller_verify" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Are you verified? </label>
+                            <input type="text" {...register("seller_verify", { required: true })} id="seller_verify" className="shadow-sm border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block md:w-[400px] w-full p-2.5 " defaultValue={isVerified} readOnly />
+                            {errors.seller_verify && <span>This field is required</span>}
                         </div>
                         <div className="mb-6">
                             <label htmlFor="seller_email" className="block mb-2 text-sm font-medium text-gray-600 text-start ml-3">Your name </label>

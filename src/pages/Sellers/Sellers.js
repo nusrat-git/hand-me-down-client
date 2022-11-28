@@ -1,15 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { useQuery } from 'react-query';
 import useTitle from '../../hooks/useTitle';
-import useVerify from '../../hooks/useVerify';
-import { AuthContext } from '../../shared/Context/AuthProvider';
 
 const Sellers = () => {
     useTitle('Sellers');
-
-    const { user } = useContext(AuthContext);
-    const [isVerified] = useVerify(user?.email);
 
     const { data: sellers = [], refetch } = useQuery({
         queryKey: ['sellers'],
