@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { useQuery } from 'react-query';
+import { Link } from 'react-router-dom';
 import useTitle from '../../hooks/useTitle';
 import { AuthContext } from '../../shared/Context/AuthProvider';
 
@@ -66,7 +67,9 @@ const MyOrders = () => {
                                                     {book.price}
                                                 </td>
                                                 <td className="py-4 px-6 text-right">
-                                                    <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">pay</button>
+                                                    <Link to={`/dashboard/dashboard/payment/${book._id}`}>
+                                                        <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">pay</button>
+                                                    </Link>
                                                 </td>
                                             </tr>)
                                     }

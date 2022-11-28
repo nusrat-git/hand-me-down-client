@@ -58,9 +58,6 @@ const Buyers = () => {
                                             <th scope="col" className="py-3 px-6 text-right">
                                                 Delete
                                             </th>
-                                            <th scope="col" className="py-3 px-6 text-right">
-                                                Verify
-                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -75,9 +72,6 @@ const Buyers = () => {
                                                     </td>
                                                     <td className="py-4 px-6 text-right">
                                                         <button onClick={() => { handleDelete(buyer._id) }} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</button>
-                                                    </td>
-                                                    <td className="py-4 px-6 text-right">
-                                                        <button className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Verify</button>
                                                     </td>
                                                 </tr>)
                                         }
